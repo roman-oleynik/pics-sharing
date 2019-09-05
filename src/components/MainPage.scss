@@ -1,0 +1,49 @@
+$fullWidth: 100%;
+$fullHeight: 100vh;
+
+$paddingMin: 5px;
+$marginMin: 5px;
+$borderRadiusMin: 5px;
+
+$color: rgb(32, 128, 120);
+
+.Header-Container {
+    height: 0.1 * $fullHeight;
+    width: $fullWidth;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: $color;
+
+    .Header-Container__Title {
+        font-size: 2em;
+        flex-grow: 5;
+        text-align: center;
+    }
+    .Header-Container__Sign-In-Button {
+        font-size: 1.2em;
+        flex-grow: 2;
+        text-align: center;
+        
+        button {
+            margin: $marginMin;
+            padding: $paddingMin;
+            border-radius: $borderRadiusMin;
+            background: #bbb;
+            border: 0;
+        }
+    }
+    .Header-Container__Sign-Up-Button {
+        font-size: 1.2em;
+        flex-grow: 2;
+        text-align: center;
+        
+        button {
+            margin: $marginMin;
+            padding: $paddingMin;
+            border-radius: $borderRadiusMin;
+            background: #acc;
+            border: 0;
+        }
+    }
+}

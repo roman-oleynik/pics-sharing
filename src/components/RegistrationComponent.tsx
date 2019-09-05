@@ -1,5 +1,4 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
 
 import {UserObject} from '../types/types';
 
@@ -10,26 +9,32 @@ interface IProps {
 }
 
 class LoginComponent extends React.PureComponent<IProps> {
-    private findUserInTheServer = (users: UserObject[], user: UserObject) => {
-        let foundUser = users.find(el => {
-            if (el.email === user.email && el.password === user.password) {
-                
-                console.log(el);
-                return el;
-            } else {
-                console.error("User not found");
-            }
-        });
-        return foundUser;
-        
-    };
+    
     private submitFormData = (UserObject: UserObject) => {
+        let data: UserObject[] = [];
         axios.get('http://localhost:4000/data')
             .then(res => {
-                const users = res.data;
-                this.findUserInTheServer(users, UserObject);
+                data = res.data
+                let isOriginal: boolean = true;
+                data.forEach(el => {
+                    if (el.email === UserObject.email) {
+                        isOriginal = false;
+                    } 
+                });
+                console.log(isOriginal);
+                if (isOriginal) {
+                    axios.post('http://localhost:4000/data', UserObject)
+                    .then(res => {
+                        
+                        console.log(res);
+                    })
+                    .catch(err => console.log(err))
+                }
             })
             .catch(err => console.log(err))
+        
+        
+        
     }
     private validatePasswordOfUserObject = (UserObject: UserObject) => {
         if (UserObject.password.length > 6) {
@@ -49,13 +54,10 @@ class LoginComponent extends React.PureComponent<IProps> {
         this.validatePasswordOfUserObject(UserObject);
     };
     public render() {
-        // if (this.state.redirect === true) {
-        //     return <Redirect to='/' />
-        // }
-        return <div className="Login-Component-Container">
-            <h1 className="Login-Component-Container__Title">Log In</h1>
-            <form className="Login-Component-Form" onSubmit={this.processFormData}>
-                <div className="Login-Input-Container">
+        return <div className="Registration-Component-Container">
+            <h1 className="Registration-Component-Container__Title">Registration</h1>
+            <form className="Registration-Component-Form" onSubmit={this.processFormData}>
+                <div className="Registration-Input-Container">
                     <label>Email:
                         <input ref="_email" type="email" placeholder="E-mail" required />
                     </label>
