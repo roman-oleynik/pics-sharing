@@ -1,3 +1,5 @@
+export const AUTHORIZE_USER = "AUTHORIZE_USER";
+
 export interface UserObject {
     id: number,
     email: string,
@@ -5,8 +7,12 @@ export interface UserObject {
 
 }
 
-export type AppState = any; // change the type any
+export interface AOAuthorizeUser {
+    type: typeof AUTHORIZE_USER,
+    body: UserObject
+}
+
 
 export interface Store {
-    AppState: AppState
+    activeUser: any
 }

@@ -2,9 +2,18 @@ import React from 'react';
 
 import './MainPage.scss';
 
+import {Store, UserObject} from '../types/types';
+
 import {NavLink} from 'react-router-dom';
 
-class MainPage extends React.PureComponent {
+import {connect} from 'react-redux';
+import UserPage from './UserPage';
+
+interface IProps {
+    activeUser: UserObject
+}
+
+class MainPage extends React.PureComponent<IProps> {
     public render() {
         return <main className="Main-Page">
             <header className="Header-Container">
@@ -14,8 +23,18 @@ class MainPage extends React.PureComponent {
                     <NavLink to="/registration" className="Header-Container__Sign-Up-Button"><button>Sign Up</button></NavLink>
                 </section>
             </header>
+            {
+                this.props.activeUser &&
+                <UserPage />
+            }
         </main>
     }
 } 
 
-export default MainPage;
+let mapStateToProps = (state: Store) => {
+    return {
+        activeUser: state.activeUser
+    }
+}
+
+export default connect(mapStateToProps)(MainPage);

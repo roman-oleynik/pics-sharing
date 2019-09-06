@@ -1,16 +1,26 @@
 import React from 'react';
 
-import {NavLink} from 'react-router-dom';
+import {Store, UserObject} from '../types/types';
 
-class UserPage extends React.PureComponent {
+import {connect} from 'react-redux';
+
+interface IProps {
+    activeUser: UserObject
+}
+
+class UserPage extends React.PureComponent<IProps> {
     public render() {
-        return <main className="User-Page">
-            <header className="Header-Container">
-                <span className="Header-Container__Title">User Page</span>
-               
-            </header>
-        </main>
+        return <section className="Page-Content">
+            {`Logged in using email: ${this.props.activeUser.email}`}
+        </section>
+
     }
 } 
 
-export default UserPage;
+let mapStateToProps = (state: Store) => {
+    return {
+        activeUser: state.activeUser
+    }
+}
+
+export default connect(mapStateToProps)(UserPage);

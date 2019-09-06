@@ -1,20 +1,23 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 
-import {UserObject} from '../types/types';
+import {UserObject, Store} from '../types/types';
+
+import {ACT_AUTHORIZE_USER} from '../actions/actions';
 
 import axios from 'axios';
 
+import {connect} from 'react-redux';
+
 interface IProps {
-    dispatch: any
+    dispatch: any,
+    activeUser: UserObject
 }
 
 class LoginComponent extends React.PureComponent<IProps> {
     private findUserInTheServer = (users: UserObject[], user: UserObject) => {
         let foundUser = users.find(el => {
             if (el.email === user.email && el.password === user.password) {
-                
-                console.log(el);
                 return el;
             } else {
                 console.error("User not found");
@@ -27,7 +30,10 @@ class LoginComponent extends React.PureComponent<IProps> {
         axios.get('http://localhost:4000/data')
             .then(res => {
                 const users = res.data;
-                this.findUserInTheServer(users, UserObject);
+                const loggedUser = this.findUserInTheServer(users, UserObject);
+                if (loggedUser) {
+                    this.props.dispatch(ACT_AUTHORIZE_USER(loggedUser))
+                }
             })
             .catch(err => console.log(err))
     }
@@ -49,9 +55,10 @@ class LoginComponent extends React.PureComponent<IProps> {
         this.validatePasswordOfUserObject(UserObject);
     };
     public render() {
-        // if (this.state.redirect === true) {
-        //     return <Redirect to='/' />
-        // }
+        console.log(this.props.activeUser)
+        if (this.props.activeUser) {
+            return <Redirect to='/' />
+        }
         return <div className="Login-Component-Container">
             <h1 className="Login-Component-Container__Title">Log In</h1>
             <form className="Login-Component-Form" onSubmit={this.processFormData}>
@@ -70,4 +77,10 @@ class LoginComponent extends React.PureComponent<IProps> {
     }
 } 
 
-export default LoginComponent;
+let mapStateToProps = (state: Store) => {
+    return {
+        activeUser: state.activeUser
+    }
+}
+
+export default connect(mapStateToProps)(LoginComponent);
