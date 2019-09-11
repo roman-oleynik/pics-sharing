@@ -1,6 +1,8 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 
+import {generateId} from '../modules/generateId';
+
 import {UserObject, Store} from '../types/types';
 
 import {ACT_AUTHORIZE_USER} from '../actions/actions';
@@ -16,11 +18,14 @@ interface IProps {
 
 class LoginComponent extends React.PureComponent<IProps> {
     private findUserInTheServer = (users: UserObject[], user: UserObject) => {
-        let foundUser = users.find(el => {
+        let foundUser;
+        users.forEach(el => { // nesessary
             if (el.email === user.email && el.password === user.password) {
-                return el;
+                foundUser = el;
+            } else if (el.email === user.email && el.password !== user.password) {
+                console.error('Incorrect password')
             } else {
-                console.error("User not found");
+                // console.error("User not found");
             }
         });
         return foundUser;
@@ -48,16 +53,15 @@ class LoginComponent extends React.PureComponent<IProps> {
         EO.preventDefault();
         const {_email, _password}: any = this.refs; //any
         const UserObject: UserObject = {
-            id: Math.floor(Math.random()*10000),
+            id: generateId(),
             email: _email.value,
             password: _password.value
         }
         this.validatePasswordOfUserObject(UserObject);
     };
     public render() {
-        console.log(this.props.activeUser)
-        if (this.props.activeUser) {
-            return <Redirect to='/' />
+        if (this.props.activeUser !== null) {
+            return <Redirect to={`/`} />
         }
         return <div className="Login-Component-Container">
             <h1 className="Login-Component-Container__Title">Log In</h1>

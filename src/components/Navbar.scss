@@ -4,6 +4,7 @@ $fullHeight: 100vh;
 $paddingMin: 5px;
 $marginMin: 5px;
 $borderRadiusMin: 5px;
+$borderRadiusCircle: 50%;
 
 $color: rgb(32, 128, 120);
 
@@ -45,5 +46,17 @@ $color: rgb(32, 128, 120);
             background: #acc;
             border: 0;
         }
+    }
+    .Header-Container__Avatar {
+        margin: $marginMin;
+        height: 30px;
+        width: 30px;
+        background: peachpuff;
+        border-radius: $borderRadiusCircle;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 30px;
+        text-align: center;
+        text-transform: uppercase;
     }
 }

@@ -1,15 +1,20 @@
 import React from 'react';
 
+import {generateId} from '../modules/generateId';
+
 import {UserObject} from '../types/types';
 
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 interface IProps {
     dispatch: any
 }
 
 class LoginComponent extends React.PureComponent<IProps> {
-    
+    public state = {
+        isSuccessful: false
+    };
     private submitFormData = (UserObject: UserObject) => {
         let data: UserObject[] = [];
         axios.get('http://localhost:4000/data')
@@ -25,7 +30,9 @@ class LoginComponent extends React.PureComponent<IProps> {
                 if (isOriginal) {
                     axios.post('http://localhost:4000/data', UserObject)
                     .then(res => {
-                        
+                        this.setState({
+                            isSuccessful: true
+                        })
                         console.log(res);
                     })
                     .catch(err => console.log(err))
@@ -47,13 +54,16 @@ class LoginComponent extends React.PureComponent<IProps> {
         EO.preventDefault();
         const {_email, _password}: any = this.refs; //any
         const UserObject: UserObject = {
-            id: Math.floor(Math.random()*10000),
+            id: generateId(),
             email: _email.value,
             password: _password.value
         }
         this.validatePasswordOfUserObject(UserObject);
     };
     public render() {
+        if (this.state.isSuccessful) {
+            return <Redirect to="/login" />
+        }
         return <div className="Registration-Component-Container">
             <h1 className="Registration-Component-Container__Title">Registration</h1>
             <form className="Registration-Component-Form" onSubmit={this.processFormData}>
