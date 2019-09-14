@@ -9,25 +9,32 @@ import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 interface IProps {
-    activeUser: UserObject
+    loggedUser: UserObject
 }
 
 const Navbar = (props: IProps) => {
     return  <header className="Header-Container">
-        <span className="Header-Container__Title">Header</span>
-        <section className="Sign-In/Up-Section">
-            <NavLink to="/login" className="Header-Container__Sign-In-Button"><button>Sign In</button></NavLink>
-            <NavLink to="/registration" className="Header-Container__Sign-Up-Button"><button>Sign Up</button></NavLink>
-        </section>
+        <NavLink to="/" className="Logo">
+                <img src="/img/logo.png" className="Logo__Image" alt="Logo" />
+                <span className="Logo__Title">childbunch</span>
+        </NavLink>
+        
         {
-            props.activeUser && <div className="Header-Container__Avatar">{props.activeUser.email.split("").slice(0,1)}</div>
+            props.loggedUser === null && <section className="Sign-In-Up-Section">
+                <NavLink to="/login" className="Header-Container__Sign-In-Button"><button>Sign In</button></NavLink>
+                <NavLink to="/registration" className="Header-Container__Sign-Up-Button"><button>Sign Up</button></NavLink>
+            </section>
+        }
+        {
+            props.loggedUser && <div className="Header-Container__Avatar">{props.loggedUser.email.split("").slice(0,1)}</div>
         }
     </header>
 }
 
 let mapStateToProps = (state: Store) => {
     return {
-        activeUser: state.activeUser
+        loggedUser: state.loggedUser,
+        currentUser: state.currentUser
     }
 }
 

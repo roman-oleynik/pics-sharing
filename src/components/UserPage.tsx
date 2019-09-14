@@ -1,14 +1,18 @@
 import React from 'react';
 
-import {Store, UserObject} from '../types/types';
-import {ACT_GET_USER} from '../actions/actions'
+import './UserPage.scss';
+
+import {Store, UserObject, Child} from '../types/types';
+import {ACT_GET_USER} from '../actions/actions';
+
+import AddChildInterface from './AddChildInterface';
 
 import {connect} from 'react-redux';
 
 import axios from 'axios';
 
 interface IProps {
-    activeUser: UserObject,
+    loggedUser: UserObject,
     currentUser: UserObject,
     match: any,
     dispatch: any
@@ -29,17 +33,20 @@ class UserPage extends React.PureComponent<IProps> {
         this.getUser(this.props.match.params.id)
     };
     public render() {
-        console.log(this.props.currentUser)
-        return this.props.currentUser && <section className="Page-Content">
-            {`${this.props.currentUser.email}`}
-        </section>
+        console.log(new Date().toDateString())
+        return this.props.currentUser ? <section className="Page-Content">
+            <h1 className="Page-Content__Username">{`${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`}</h1>
+            {
+                this.props.loggedUser !== null && <AddChildInterface /> // ? : GetChildrenInterface
+            }
+        </section> : <div>Loading...</div> // add option of user's absence
 
     }
 } 
 
 let mapStateToProps = (state: Store) => {
     return {
-        activeUser: state.activeUser,
+        loggedUser: state.loggedUser,
         currentUser: state.currentUser
     }
 }

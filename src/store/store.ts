@@ -1,10 +1,10 @@
 import {createStore, combineReducers} from 'redux';
 
-import {activeUserReducer} from '../reducers/activeUserReducer';
+import {loggedUserReducer} from '../reducers/loggedUserReducer';
 import {currentUserReducer} from '../reducers/currentUserReducer';
 
 let combinedReducer = combineReducers({
-    activeUser: activeUserReducer,
+    loggedUser: loggedUserReducer,
     currentUser: currentUserReducer
 });
 

@@ -1,0 +1,15 @@
+
+.Main-Screen {
+    position: relative;
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .Main-Screen__Title {
+        font-size: 5em;
+    }
+    .Main-Screen__Picture {
+        height: 600px;
+    }
+}

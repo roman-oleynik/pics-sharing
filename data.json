@@ -1,34 +1,25 @@
 {
   "data": [
     {
-      "id": "v7lr6tpojirt3wuadcc4qgsn",
+      "id": "r57rxn28kzonl0ihokgrwfw4",
       "email": "raman.alejnik@gmail.com",
-      "password": "123qwe1"
+      "password": "123qwe1",
+      "firstName": "Роман",
+      "lastName": "Олейник",
+      "children": [
+        {
+          "name": "Vasya",
+          "dateOfBirth": "Thu Sep 12 2019"
+        }
+      ]
     },
     {
-      "id": "b1qwnclpmkruy8fuitjj9217",
-      "email": "r@a",
-      "password": "123qwe1"
-    },
-    {
-      "id": "b2qgx9gn3w8jnl6fobd41y6x",
-      "email": "d@b",
-      "password": "1234567890"
-    },
-    {
-      "id": "amfxbma53269s5f06cx5hgk1",
-      "email": "w@wr",
-      "password": "1234567"
-    },
-    {
-      "id": "mrq7hxlr7t0jk7yqcueiyanq",
-      "email": "sergey@gmail.com",
-      "password": "123454321"
-    },
-    {
-      "id": "gxeginq7lpy9yr6r55grg4wb",
-      "email": "q@er",
-      "password": "12345678"
+      "id": "slv2d1ss4y2h43wodrubmxkm",
+      "email": "wer@g.com",
+      "password": "123qwe1",
+      "firstName": "Qwer",
+      "lastName": "Tyop",
+      "children": []
     }
   ]
 }

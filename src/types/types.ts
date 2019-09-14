@@ -1,11 +1,18 @@
 export const AUTHORIZE_USER = "AUTHORIZE_USER";
 export const GET_USER = "GET_USER";
 
+export interface Child {
+    name: string,
+    dateOfBirth: Date
+}
+
 export interface UserObject {
     id?: string,
     email: string,
-    password: string // create types Email and Password later
-
+    password: string,
+    firstName: string,
+    lastName: string,
+    children: Child[]
 }
 
 export interface AOAuthorizeUser {
@@ -18,6 +25,6 @@ export interface AOGetUser {
 }
 
 export interface Store {
-    activeUser: UserObject,
+    loggedUser: UserObject,
     currentUser: UserObject
 }

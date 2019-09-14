@@ -1,6 +1,8 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 
+import './LoginComponent.scss';
+
 import {generateId} from '../modules/generateId';
 
 import {UserObject, Store} from '../types/types';
@@ -10,13 +12,21 @@ import {ACT_AUTHORIZE_USER} from '../actions/actions';
 import axios from 'axios';
 
 import {connect} from 'react-redux';
+import MainPage from './MainPage';
 
 interface IProps {
     dispatch: any,
-    activeUser: UserObject
+    loggedUser: UserObject
 }
 
-class LoginComponent extends React.PureComponent<IProps> {
+interface IState {
+    isFormOpened: boolean
+}
+
+class LoginComponent extends React.PureComponent<IProps, IState> {
+    public state = {
+        isFormOpened: false
+    };
     private findUserInTheServer = (users: UserObject[], user: UserObject) => {
         let foundUser;
         users.forEach(el => { // nesessary
@@ -55,35 +65,52 @@ class LoginComponent extends React.PureComponent<IProps> {
         const UserObject: UserObject = {
             id: generateId(),
             email: _email.value,
-            password: _password.value
+            password: _password.value,
+            firstName: "",
+            lastName: "",
+            children: []
         }
         this.validatePasswordOfUserObject(UserObject);
     };
+    public closeForm = () => {
+        this.setState({isFormOpened: true})
+    };
     public render() {
-        if (this.props.activeUser !== null) {
+        if (this.props.loggedUser !== null) {
+            return <Redirect to={`/in/${this.props.loggedUser.id}/children`} />
+        }
+        if (this.state.isFormOpened) {
             return <Redirect to={`/`} />
         }
-        return <div className="Login-Component-Container">
-            <h1 className="Login-Component-Container__Title">Log In</h1>
-            <form className="Login-Component-Form" onSubmit={this.processFormData}>
-                <div className="Login-Input-Container">
-                    <label>Email:
-                        <input ref="_email" type="email" placeholder="E-mail" required />
-                    </label>
-                    <label>Password:
-                        <input ref="_password" type="password" placeholder="More than 6 symbols" required />
-                    </label>
-                </div>
-            
-                <input type="submit" value="Submit" />
-            </form>
-        </div>
+        return <React.Fragment>
+            <MainPage />
+            <div className="Login-Component-Container">
+                <h1 className="Login-Component-Container__Title">Sign In</h1>
+                <form className="Login-Component-Form" onSubmit={this.processFormData}>
+                    <div className="Login-Input-Container">
+                        <label className="Login-Input-Container__Label">Email: <br/>
+                            <input ref="_email" type="email" placeholder="E-mail" required />
+                        </label>
+                        <label className="Login-Input-Container__Label">Password: <br/>
+                            <input ref="_password" type="password" placeholder="More than 6 symbols" required />
+                        </label>
+                    </div>
+
+                    <div className="Login-Buttons-Container">
+                        <input type="submit" value="Submit" className='Login-Component-Form__Submit' />
+                        <input type="button" value="Cancel" className='Login-Component-Form__Cancel' onClick={this.closeForm} />
+                    </div>
+                    
+                </form>
+            </div>
+        </React.Fragment>
+       
     }
 } 
 
 let mapStateToProps = (state: Store) => {
     return {
-        activeUser: state.activeUser
+        loggedUser: state.loggedUser
     }
 }
 

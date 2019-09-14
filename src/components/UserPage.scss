@@ -1,0 +1,10 @@
+$fullScreenHeight: 100vh;
+$fullScreenWidth: 100%;
+
+.Page-Content {
+    height: $fullScreenHeight;
+    width: $fullScreenWidth;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

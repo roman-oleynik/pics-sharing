@@ -6,7 +6,7 @@ $marginMin: 5px;
 $borderRadiusMin: 5px;
 $borderRadiusCircle: 50%;
 
-$color: rgb(32, 128, 120);
+$color: lightblue;
 
 .Header-Container {
     height: 0.1 * $fullHeight;
@@ -16,47 +16,65 @@ $color: rgb(32, 128, 120);
     justify-content: space-around;
     background: $color;
 
-    .Header-Container__Title {
-        font-size: 2em;
+    .Logo {
+        display: flex;
+        align-items: center;
         flex-grow: 5;
-        text-align: center;
-    }
-    .Header-Container__Sign-In-Button {
-        font-size: 1.2em;
-        flex-grow: 2;
-        text-align: center;
-        
-        button {
-            margin: $marginMin;
-            padding: $paddingMin;
-            border-radius: $borderRadiusMin;
-            background: #bbb;
-            border: 0;
+        margin-left: 100px;
+        text-decoration: none;
+        color: rgb(150, 82, 150);
+        .Logo__Image {
+            height: 30px;
+            width: 30px;
+            
+    
+        }
+    
+        .Logo__Title {
+            font-size: 1.4em;
+            text-align: center;
         }
     }
-    .Header-Container__Sign-Up-Button {
-        font-size: 1.2em;
+    .Sign-In-Up-Section {
         flex-grow: 2;
-        text-align: center;
-        
-        button {
+
+        .Header-Container__Sign-In-Button {
+            margin-right: 100px;
+            
+            button {
+                font-size: 1.3em;
+                text-align: center;
+                margin: $marginMin;
+                padding: $paddingMin;
+                border-radius: $borderRadiusMin;
+                background: transparent;
+                border: 0;
+            }
+        }
+        .Header-Container__Sign-Up-Button {
+            
+            button {
+                font-size: 1.3em;
+                text-align: center;
+                margin: $marginMin;
+                padding: $paddingMin;
+                border-radius: $borderRadiusMin;
+                background: transparent;
+                border: 0;
+            }
+        }
+        .Header-Container__Avatar {
             margin: $marginMin;
-            padding: $paddingMin;
-            border-radius: $borderRadiusMin;
-            background: #acc;
-            border: 0;
+            height: 30px;
+            width: 30px;
+            background: peachpuff;
+            border-radius: $borderRadiusCircle;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 30px;
+            text-align: center;
+            text-transform: uppercase;
         }
     }
-    .Header-Container__Avatar {
-        margin: $marginMin;
-        height: 30px;
-        width: 30px;
-        background: peachpuff;
-        border-radius: $borderRadiusCircle;
-        font-size: 20px;
-        font-weight: bold;
-        line-height: 30px;
-        text-align: center;
-        text-transform: uppercase;
-    }
+    
 }

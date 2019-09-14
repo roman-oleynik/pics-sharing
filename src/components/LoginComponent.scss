@@ -1,0 +1,34 @@
+.Login-Component-Container {
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: lightslategrey;
+    padding: 20px;
+    box-shadow: 0 0 1000px 500px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+
+    .Login-Component-Container__Title {
+        text-align: center;
+        flex-grow: 1;
+    }
+    .Login-Component-Form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-grow: 2;
+
+        .Login-Input-Container {
+            display: flex;
+            flex-direction: column;
+
+            .Login-Input-Container__Label {
+                margin: 3px;
+                font-size: 0.8em;
+            }
+        }
+    }
+}
