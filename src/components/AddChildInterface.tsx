@@ -4,6 +4,8 @@ import {Store, UserObject, Child} from '../types/types';
 
 import {connect} from 'react-redux';
 
+import ChildItem from './ChildItem';
+
 interface IProps {
     loggedUser: UserObject
 }
@@ -12,13 +14,13 @@ class AddChildInterface extends React.PureComponent<IProps> {
     public render() {
         return <div className="Add-Child-Interface">
             <h2 className="Add-Child-Interface__Title">Children</h2>
-            <ol className="Add-Child-Interface__Child-List">
+            <section className="Add-Child-Interface__Child-List">
             {
                 this.props.loggedUser && this.props.loggedUser.children.length !== 0 && this.props.loggedUser.children.map((child: Child) => {
-                    return <li key={child.name}>{child.name}</li>
+                    return <ChildItem key={child.name} childInfo={child} />
                 })
             }
-            </ol>
+            </section>
             <div className="Add-Child-Interface__Button-Container">
                 <button className="Add-Child-Interface__Button">Add child</button>
             </div>

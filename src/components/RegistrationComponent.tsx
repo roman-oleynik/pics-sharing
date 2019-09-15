@@ -45,6 +45,8 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                         console.log(res);
                     })
                     .catch(err => console.log(err))
+                } else {
+                    console.log('this email is already busy')
                 }
             })
             .catch(err => console.log(err))

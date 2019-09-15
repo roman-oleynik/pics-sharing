@@ -8,6 +8,8 @@ import {NavLink} from 'react-router-dom';
 
 import {connect} from 'react-redux';
 
+import AuthorizedUser from './AuthorizedUser';
+
 interface IProps {
     loggedUser: UserObject
 }
@@ -26,7 +28,7 @@ const Navbar = (props: IProps) => {
             </section>
         }
         {
-            props.loggedUser && <div className="Header-Container__Avatar">{props.loggedUser.email.split("").slice(0,1)}</div>
+            props.loggedUser && <AuthorizedUser />
         }
     </header>
 }

@@ -12,3 +12,8 @@ export function ACT_GET_USER(user: UserObject): AOGetUser {
         body: user
     }
 }
+// export function ACT_LOG_OUT(): AOLogOut {
+//     return {
+//         type: LOG_OUT
+//     }
+// }

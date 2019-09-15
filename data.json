@@ -9,7 +9,13 @@
       "children": [
         {
           "name": "Vasya",
-          "dateOfBirth": "Thu Sep 12 2019"
+          "dateOfBirth": "Thu Sep 12 2019",
+          "photoSrc": "/img/photo.jpg"
+        },
+        {
+          "name": "Piotr",
+          "dateOfBirth": "Thu Sep 12 2016",
+          "photoSrc": "/img/photo.jpg"
         }
       ]
     },

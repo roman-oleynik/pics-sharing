@@ -20,24 +20,25 @@ interface IProps {
 }
 
 interface IState {
-    isFormOpened: boolean
+    isFormOpened: boolean,
+    formStatus: string
 }
 
 class LoginComponent extends React.PureComponent<IProps, IState> {
     public state = {
-        isFormOpened: false
+        isFormOpened: true,
+        formStatus: "active"
     };
     private findUserInTheServer = (users: UserObject[], user: UserObject) => {
-        let foundUser;
-        users.forEach(el => { // nesessary
+        let foundUser = users.find(el => { // nesessary
             if (el.email === user.email && el.password === user.password) {
-                foundUser = el;
-            } else if (el.email === user.email && el.password !== user.password) {
-                console.error('Incorrect password')
-            } else {
-                // console.error("User not found");
-            }
+                return el;
+            } 
         });
+        if (!foundUser) {
+            this.setState({formStatus: "userNotFound"})
+        }
+        console.log(foundUser)
         return foundUser;
         
     };
@@ -73,36 +74,41 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
         this.validatePasswordOfUserObject(UserObject);
     };
     public closeForm = () => {
-        this.setState({isFormOpened: true})
+        this.setState({isFormOpened: false})
     };
     public render() {
         if (this.props.loggedUser !== null) {
             return <Redirect to={`/in/${this.props.loggedUser.id}/children`} />
         }
-        if (this.state.isFormOpened) {
+        if (!this.state.isFormOpened) {
             return <Redirect to={`/`} />
         }
         return <React.Fragment>
-            <MainPage />
-            <div className="Login-Component-Container">
-                <h1 className="Login-Component-Container__Title">Sign In</h1>
-                <form className="Login-Component-Form" onSubmit={this.processFormData}>
-                    <div className="Login-Input-Container">
-                        <label className="Login-Input-Container__Label">Email: <br/>
-                            <input ref="_email" type="email" placeholder="E-mail" required />
-                        </label>
-                        <label className="Login-Input-Container__Label">Password: <br/>
-                            <input ref="_password" type="password" placeholder="More than 6 symbols" required />
-                        </label>
-                    </div>
-
-                    <div className="Login-Buttons-Container">
-                        <input type="submit" value="Submit" className='Login-Component-Form__Submit' />
-                        <input type="button" value="Cancel" className='Login-Component-Form__Cancel' onClick={this.closeForm} />
-                    </div>
+                <MainPage />                
+                <div className="Login-Component-Container">
+                    <h1 className="Login-Component-Container__Title">Sign In</h1>
+                    {
+                        this.state.formStatus === "userNotFound" && 
+                        <div className="User-Not-Found">User Not Found</div>
+                    }
                     
-                </form>
-            </div>
+                    <form className="Login-Component-Form" onSubmit={this.processFormData}>
+                        <div className="Login-Input-Container">
+                            <label className="Login-Input-Container__Label">Email: <br/>
+                                <input ref="_email" type="email" placeholder="E-mail" required />
+                            </label>
+                            <label className="Login-Input-Container__Label">Password: <br/>
+                                <input ref="_password" type="password" placeholder="More than 6 symbols" required />
+                            </label>
+                        </div>
+
+                        <div className="Login-Buttons-Container">
+                            <input type="submit" value="Submit" className='Login-Component-Form__Submit' />
+                            <input type="button" value="Cancel" className='Login-Component-Form__Cancel' onClick={this.closeForm} />
+                        </div>
+                        
+                    </form>
+                </div>
         </React.Fragment>
        
     }

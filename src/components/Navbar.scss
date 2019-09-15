@@ -6,21 +6,20 @@ $marginMin: 5px;
 $borderRadiusMin: 5px;
 $borderRadiusCircle: 50%;
 
-$color: lightblue;
+$color: #fff;
 
 .Header-Container {
     height: 0.1 * $fullHeight;
     width: $fullWidth;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     background: $color;
 
     .Logo {
         display: flex;
         align-items: center;
-        flex-grow: 5;
-        margin-left: 100px;
+        margin: 0 100px;
         text-decoration: none;
         color: rgb(150, 82, 150);
         .Logo__Image {
@@ -36,7 +35,7 @@ $color: lightblue;
         }
     }
     .Sign-In-Up-Section {
-        flex-grow: 2;
+        margin: 0 100px;
 
         .Header-Container__Sign-In-Button {
             margin-right: 100px;
@@ -63,18 +62,7 @@ $color: lightblue;
                 border: 0;
             }
         }
-        .Header-Container__Avatar {
-            margin: $marginMin;
-            height: 30px;
-            width: 30px;
-            background: peachpuff;
-            border-radius: $borderRadiusCircle;
-            font-size: 20px;
-            font-weight: bold;
-            line-height: 30px;
-            text-align: center;
-            text-transform: uppercase;
-        }
+        
     }
     
 }

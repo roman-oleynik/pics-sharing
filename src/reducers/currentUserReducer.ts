@@ -5,6 +5,6 @@ export function currentUserReducer(state: any = null, action:any) { //
         let newState = {...state};
         newState = action.body;
         return newState;
-    }
+    } 
     return state;
 }
