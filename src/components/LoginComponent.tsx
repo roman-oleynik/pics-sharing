@@ -9,6 +9,8 @@ import {UserObject, Store} from '../types/types';
 
 import {ACT_AUTHORIZE_USER} from '../actions/actions';
 
+import {NavLink} from 'react-router-dom';
+
 import axios from 'axios';
 
 import {connect} from 'react-redux';
@@ -38,7 +40,6 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
         if (!foundUser) {
             this.setState({formStatus: "userNotFound"})
         }
-        console.log(foundUser)
         return foundUser;
         
     };
@@ -108,6 +109,7 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                         </div>
                         
                     </form>
+                    <NavLink to="/registration">Registration</NavLink>
                 </div>
         </React.Fragment>
        

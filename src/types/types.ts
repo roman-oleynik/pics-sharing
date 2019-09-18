@@ -1,11 +1,20 @@
 export const AUTHORIZE_USER = "AUTHORIZE_USER";
 export const GET_USER = "GET_USER";
+export const ADD_CHILD_PHOTO = "ADD_CHILD_PHOTO";
 // export const LOG_OUT = "LOG_OUT";
 
+export interface ChildPhoto {
+    id: string,
+    src: string,
+    createdAt: Date
+}
+
 export interface Child {
+    id: string,
     name: string,
     dateOfBirth: Date,
-    photoSrc: string
+    placeOfBirth: string,
+    photos: ChildPhoto[]
 }
 
 export interface UserObject {
@@ -25,6 +34,11 @@ export interface AOGetUser {
     type: typeof GET_USER,
     body: UserObject
 }
+export interface AOAddChildPhoto {
+    type: typeof ADD_CHILD_PHOTO,
+    body: UserObject
+}
+
 // export interface AOLogOut {
 //     type: typeof LOG_OUT
 // }

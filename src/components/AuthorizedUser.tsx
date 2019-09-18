@@ -17,7 +17,6 @@ interface IProps {
 
 class AuthorizedUser extends React.PureComponent<IProps> {
     public render() {
-        console.log(this.props.loggedUser);
         if (this.props.loggedUser === null) {
             return <Redirect to="/" />
         }

@@ -7,6 +7,8 @@ import {ACT_GET_USER} from '../actions/actions';
 
 import AddChildInterface from './AddChildInterface';
 
+import {Redirect} from 'react-router-dom';
+
 import {connect} from 'react-redux';
 
 import axios from 'axios';
@@ -33,7 +35,9 @@ class UserPage extends React.PureComponent<IProps> {
         this.getUser(this.props.match.params.id)
     };
     public render() {
-        console.log(new Date().toDateString())
+        if (this.props.loggedUser == null) {
+            return <Redirect to="/login" />
+        }
         return this.props.currentUser ? <section className="Page-Content">
             <h1 className="Page-Content__Username">{`${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`}</h1>
             {
