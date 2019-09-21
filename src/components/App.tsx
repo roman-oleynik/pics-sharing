@@ -12,6 +12,8 @@ import LoginComponent from './LoginComponent';
 import RegistrationComponent from './RegistrationComponent';
 import UserPage from './UserPage';
 import ChildPage from './ChildPage';
+import AddChildInterface from './AddChildInterface';
+import ChildrenList from './ChildrenList';
 
 class App extends React.PureComponent {
   public render() {
@@ -24,6 +26,7 @@ class App extends React.PureComponent {
               <Route path='/login' component={LoginComponent} />
               <Route path='/registration' component={RegistrationComponent} />
               <Route path='/in/:id/children' exact component={UserPage} />
+              <Route path='/in/:id/children/add' component={AddChildInterface} />
               <Route path='/in/:id/children/:id' component={ChildPage} />
             </Switch>  
           </BrowserRouter>

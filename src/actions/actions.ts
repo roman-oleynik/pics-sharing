@@ -1,4 +1,4 @@
-import {UserObject, AOAuthorizeUser, AOGetUser, AOAddChildPhoto, AUTHORIZE_USER, GET_USER, ADD_CHILD_PHOTO} from '../types/types';
+import {Child, UserObject, AOAuthorizeUser, AOGetUser, AOAddChild, AOAddChildPhoto, ADD_CHILD, AUTHORIZE_USER, GET_USER, ADD_CHILD_PHOTO} from '../types/types';
 
 export function ACT_AUTHORIZE_USER(user: UserObject): AOAuthorizeUser {
     return {
@@ -9,6 +9,12 @@ export function ACT_AUTHORIZE_USER(user: UserObject): AOAuthorizeUser {
 export function ACT_GET_USER(user: UserObject): AOGetUser {
     return {
         type: GET_USER,
+        body: user
+    }
+}
+export function ACT_ADD_CHILD(user: UserObject): AOAddChild {
+    return {
+        type: ADD_CHILD,
         body: user
     }
 }

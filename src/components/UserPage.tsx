@@ -5,7 +5,7 @@ import './UserPage.scss';
 import {Store, UserObject, Child} from '../types/types';
 import {ACT_GET_USER} from '../actions/actions';
 
-import AddChildInterface from './AddChildInterface';
+import ChildrenList from './ChildrenList';
 
 import {Redirect} from 'react-router-dom';
 
@@ -41,7 +41,7 @@ class UserPage extends React.PureComponent<IProps> {
         return this.props.currentUser ? <section className="Page-Content">
             <h1 className="Page-Content__Username">{`${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`}</h1>
             {
-                this.props.loggedUser !== null && <AddChildInterface /> // ? : GetChildrenInterface
+                this.props.loggedUser !== null && <ChildrenList /> // ? : GetChildrenInterface
             }
         </section> : <div>Loading...</div> // add option of user's absence
 
