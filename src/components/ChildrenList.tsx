@@ -1,16 +1,12 @@
 import React from 'react';
-
 import {Store, UserObject, Child} from '../types/types';
-
 import {connect} from 'react-redux';
-
 import {Redirect, NavLink} from 'react-router-dom';
-
 import ChildItem from './ChildItem';
 
 interface IProps {
     loggedUser: UserObject
-}
+};
 
 class ChildrenList extends React.PureComponent<IProps> {
     public render() {

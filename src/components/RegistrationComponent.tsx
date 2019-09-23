@@ -1,33 +1,29 @@
-import React from 'react';
-
+import React, { FormEvent } from 'react';
 import './RegistrationComponent.scss';
-
 import {generateId} from '../modules/generateId';
-
 import {UserObject} from '../types/types';
-
-import axios from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import { Redirect } from 'react-router';
 import MainPage from './MainPage';
 
 interface IProps {
     dispatch: any
-}
-
+};
 interface IState {
     isSuccessful: boolean,
     isFormOpened: boolean
-}
+};
 
 class LoginComponent extends React.PureComponent<IProps, IState> {
     public state = {
         isSuccessful: false,
-        isFormOpened: false
+        isFormOpened: true
     };
-    private submitFormData = (UserObject: UserObject) => {
+
+    public submitFormData = (UserObject: UserObject): void => {
         let data: UserObject[] = [];
         axios.get('http://localhost:4000/data')
-            .then(res => {
+            .then((res: AxiosResponse) => {
                 data = res.data
                 let isOriginal: boolean = true;
                 data.forEach(el => {
@@ -35,35 +31,30 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                         isOriginal = false;
                     } 
                 });
-                console.log(isOriginal);
                 if (isOriginal) {
                     axios.post('http://localhost:4000/data', UserObject)
-                    .then(res => {
-                        this.setState({
-                            isSuccessful: true
-                        })
-                        console.log(res);
+                    .then((res: AxiosResponse) => {
+                        res && this.setState({isSuccessful: true})
                     })
-                    .catch(err => console.log(err))
+                    .catch((err: AxiosError) => console.log(err));
                 } else {
-                    console.log('this email is already busy')
+                    console.log('this email is already busy');
                 }
             })
-            .catch(err => console.log(err))
-        
-        
-        
-    }
-    private validatePasswordOfUserObject = (UserObject: UserObject) => {
+            .catch((err: AxiosError) => console.log(err));
+    };
+
+    public validatePasswordOfUserObject = (UserObject: UserObject): void => {
         if (UserObject.password.length > 6) {
             this.submitFormData(UserObject);
         } else {
-            alert('Your password must contain more than 6 symbols!')
+            alert('Your password must contain more than 6 symbols!');
         }
     };
-    public processFormData = (EO: any): void => {
+
+    public processFormData = (EO: FormEvent): void => {
         EO.preventDefault();
-        const {_email, _password, _firstName, _lastName}: any = this.refs; //any
+        const {_email, _password, _firstName, _lastName}: any = this.refs; 
         const UserObject: UserObject = {
             id: generateId(),
             email: _email.value,
@@ -74,14 +65,18 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
         }
         this.validatePasswordOfUserObject(UserObject);
     };
-    public closeForm = () => {
-        this.setState({isFormOpened: true})
+
+    public closeForm = (): void => {
+        this.setState({isFormOpened: false})
     };
+
     public render() {
-        if (this.state.isSuccessful) {
+        const {isSuccessful} = this.state;
+        const {isFormOpened} = this.state;
+        if (isSuccessful) {
             return <Redirect to="/login" />
         }
-        if (this.state.isFormOpened) {
+        if (!isFormOpened) {
             return <Redirect to={`/`} />
         }
         return <React.Fragment>
@@ -112,7 +107,7 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                 </form>
             </div>
         </React.Fragment>
-    }
+    };
 } 
 
 export default LoginComponent;

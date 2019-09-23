@@ -1,0 +1,25 @@
+$fullWidth: 100%;
+$fullHeight: 100vh;
+
+$paddingMin: 5px;
+$marginMin: 5px;
+$borderRadiusMin: 5px;
+$borderRadiusCircle: 50%;
+
+.Logged-User-Widget {
+    display: flex;
+    align-items: center;
+
+    .Logged-User-Widget__Avatar {
+        margin: $marginMin;
+        height: 30px;
+        width: 30px;
+        background: peachpuff;
+        border-radius: $borderRadiusCircle;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 30px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+}

@@ -1,57 +1,54 @@
 import React from 'react';
-
 import './UserPage.scss';
-
-import {Store, UserObject, Child} from '../types/types';
+import {Store, UserObject} from '../types/types';
 import {ACT_GET_USER} from '../actions/actions';
-
 import ChildrenList from './ChildrenList';
-
 import {Redirect} from 'react-router-dom';
-
 import {connect} from 'react-redux';
-
-import axios from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 
 interface IProps {
     loggedUser: UserObject,
     currentUser: UserObject,
     match: any,
     dispatch: any
-}
+};
 
 class UserPage extends React.PureComponent<IProps> {
-    getUser = (id: string) => {
+    getUser = (id: string): void => {
         axios.get('http://localhost:4000/data')
-            .then(res => {
-                let curUser = res.data.find((user: UserObject) => {
+            .then((res: AxiosResponse) => {
+                console.log(res)
+                let curUser: UserObject = res.data.find((user: UserObject) => {
                     return user.id === id && user.id
                 });
                 this.props.dispatch(ACT_GET_USER(curUser))
             })
-            .catch(err => console.log(err))
+            .catch((err: AxiosError) => console.log(err))
     };
-    componentWillMount = () => {
+
+    componentWillMount = (): void => {
         this.getUser(this.props.match.params.id)
     };
+
     public render() {
-        if (this.props.loggedUser == null) {
+        const {loggedUser} = this.props;
+        if (loggedUser === null) {
             return <Redirect to="/login" />
         }
-        return this.props.currentUser ? <section className="Page-Content">
-            <h1 className="Page-Content__Username">{`${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`}</h1>
-            {
-                this.props.loggedUser !== null && <ChildrenList /> // ? : GetChildrenInterface
-            }
-        </section> : <div>Loading...</div> // add option of user's absence
 
-    }
+        return loggedUser ? <section className="Page-Content">
+            <h1 className="Page-Content__Username">{`${loggedUser.firstName} ${loggedUser.lastName}`}</h1>
+            {
+                loggedUser !== null && <ChildrenList />
+            }
+        </section> : <div>Loading...</div>
+    };
 } 
 
 let mapStateToProps = (state: Store) => {
     return {
-        loggedUser: state.loggedUser,
-        currentUser: state.currentUser
+        loggedUser: state.loggedUser
     }
 }
 

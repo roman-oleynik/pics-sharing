@@ -1,48 +1,42 @@
 import React from 'react';
-
 import {Store, UserObject, Child} from '../types/types';
-
 import {connect} from 'react-redux';
-
-import {Redirect, NavLink} from 'react-router-dom';
-
+import {Redirect} from 'react-router-dom';
 import {generateId} from '../modules/generateId';
-
 import axios from 'axios';
 import { ACT_ADD_CHILD } from '../actions/actions';
-
-
 
 interface IProps {
     loggedUser: UserObject,
     currentUser: UserObject,
     match: any,
     dispatch: any
-}
-
+};
 interface IState {
     isChildAdded: boolean
-}
+};
 
 class AddChildInterface extends React.PureComponent<IProps, IState> {
     public state = {
         isChildAdded: false
     };
-    public processFormData = () => {
+
+    public processFormData = (): void => {
         let {_name, _dateOfBirth, _placeOfBirth}: any = this.refs;
+
         let childData: Child = this.props.loggedUser && {
             id: generateId(),
             name: _name.value,
-            dateOfBirth: _dateOfBirth.value,
+            dateOfBirth: new Date(_dateOfBirth.value),
             placeOfBirth: _placeOfBirth.value,
             photos: []
         };
         this.submitData(childData);
-        console.log(childData)
     };
-    public submitData = (data: Child) => {
-        let user = {...this.props.loggedUser};
-        let children = [...user.children, data];
+
+    public submitData = (data: Child): void => {
+        let user: UserObject = {...this.props.loggedUser};
+        let children: Child[] = [...user.children, data];
         user.children = children;
 
         axios.put(`http://localhost:4000/data/${this.props.loggedUser.id}`, user)
@@ -53,11 +47,14 @@ class AddChildInterface extends React.PureComponent<IProps, IState> {
             })
             .catch(err => console.log(err))
     };
+
     public render() {
-        if (this.props.loggedUser == null) {
+        const {loggedUser} = this.props;
+        const {isChildAdded} = this.state;
+        if (loggedUser == null) {
             return <Redirect to="/login" />
         }
-        if (this.state.isChildAdded) {
+        if (isChildAdded) {
             return <Redirect to={`/in/${this.props.loggedUser.id}/children`} />
         }
         return <div>
@@ -66,10 +63,7 @@ class AddChildInterface extends React.PureComponent<IProps, IState> {
             <input type="text" ref="_placeOfBirth" required />
             <button onClick={this.processFormData}>adssadsa</button>
         </div>
-            
-
-        
-    }
+    };
 } 
 
 let mapStateToProps = (state: Store) => {

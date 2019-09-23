@@ -1,49 +1,42 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
 import {Redirect} from 'react-router-dom';
-
 import './LoginComponent.scss';
-
 import {generateId} from '../modules/generateId';
-
 import {UserObject, Store} from '../types/types';
-
 import {ACT_AUTHORIZE_USER} from '../actions/actions';
-
 import {NavLink} from 'react-router-dom';
-
 import axios from 'axios';
-
 import {connect} from 'react-redux';
 import MainPage from './MainPage';
 
 interface IProps {
     dispatch: any,
     loggedUser: UserObject
-}
-
+};
 interface IState {
     isFormOpened: boolean,
     formStatus: string
-}
+};
 
 class LoginComponent extends React.PureComponent<IProps, IState> {
     public state = {
         isFormOpened: true,
         formStatus: "active"
     };
-    private findUserInTheServer = (users: UserObject[], user: UserObject) => {
-        let foundUser = users.find(el => { // nesessary
+
+    private findUserInTheServer = (users: UserObject[], user: UserObject): UserObject | undefined => {
+        let foundUser = users.find((el:UserObject): UserObject | undefined => {
             if (el.email === user.email && el.password === user.password) {
                 return el;
             } 
         });
         if (!foundUser) {
-            this.setState({formStatus: "userNotFound"})
+            this.setState({formStatus: "userNotFound"});
         }
         return foundUser;
-        
     };
-    private submitFormData = (UserObject: UserObject) => {
+
+    private submitFormData = (UserObject: UserObject): void => {
         axios.get('http://localhost:4000/data')
             .then(res => {
                 const users = res.data;
@@ -53,17 +46,20 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                 }
             })
             .catch(err => console.log(err))
-    }
-    private validatePasswordOfUserObject = (UserObject: UserObject) => {
+    };
+
+    private validatePasswordOfUserObject = (UserObject: UserObject): void => {
         if (UserObject.password.length > 6) {
             this.submitFormData(UserObject);
         } else {
             alert('Your password must contain more than 6 symbols!')
         }
     };
-    public processFormData = (EO: any): void => {
+
+    public processFormData = (EO: FormEvent): void => {
         EO.preventDefault();
-        const {_email, _password}: any = this.refs; //any
+        const {_email}: any = this.refs; 
+        const {_password}: any = this.refs; 
         const UserObject: UserObject = {
             id: generateId(),
             email: _email.value,
@@ -71,17 +67,21 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
             firstName: "",
             lastName: "",
             children: []
-        }
+        };
         this.validatePasswordOfUserObject(UserObject);
     };
-    public closeForm = () => {
-        this.setState({isFormOpened: false})
+
+    public closeForm = (): void => {
+        this.setState({isFormOpened: false});
     };
+
     public render() {
-        if (this.props.loggedUser !== null) {
+        const {loggedUser} = this.props;
+        const {isFormOpened} = this.state;
+        if (loggedUser !== null) {
             return <Redirect to={`/in/${this.props.loggedUser.id}/children`} />
         }
-        if (!this.state.isFormOpened) {
+        if (!isFormOpened) {
             return <Redirect to={`/`} />
         }
         return <React.Fragment>
@@ -113,7 +113,7 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                 </div>
         </React.Fragment>
        
-    }
+    };
 } 
 
 let mapStateToProps = (state: Store) => {

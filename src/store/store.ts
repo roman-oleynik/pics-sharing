@@ -1,11 +1,9 @@
 import {createStore, combineReducers} from 'redux';
 
 import {loggedUserReducer} from '../reducers/loggedUserReducer';
-import {currentUserReducer} from '../reducers/currentUserReducer';
 
 let combinedReducer = combineReducers({
-    loggedUser: loggedUserReducer,
-    currentUser: currentUserReducer
+    loggedUser: loggedUserReducer
 });
 
 let store = createStore(combinedReducer);

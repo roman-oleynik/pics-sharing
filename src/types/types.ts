@@ -2,7 +2,7 @@ export const AUTHORIZE_USER = "AUTHORIZE_USER";
 export const GET_USER = "GET_USER";
 export const ADD_CHILD_PHOTO = "ADD_CHILD_PHOTO";
 export const ADD_CHILD = "ADD_CHILD";
-// export const LOG_OUT = "LOG_OUT";
+export const LOG_OUT = "LOG_OUT";
 
 export interface ChildPhoto {
     id: string,
@@ -43,12 +43,12 @@ export interface AOAddChildPhoto {
     type: typeof ADD_CHILD_PHOTO,
     body: UserObject
 }
+export interface AOLogOut {
+    type: typeof LOG_OUT
+}
 
-// export interface AOLogOut {
-//     type: typeof LOG_OUT
-// }
+export type ActionObject = AOAuthorizeUser | AOGetUser | AOAddChild | AOAddChildPhoto | AOLogOut;
 
 export interface Store {
-    loggedUser: UserObject,
-    currentUser: UserObject
+    loggedUser: UserObject
 }
