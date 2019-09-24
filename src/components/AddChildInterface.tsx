@@ -13,12 +13,14 @@ interface IProps {
     dispatch: any
 };
 interface IState {
-    isChildAdded: boolean
+    isChildAdded: boolean,
+    isFormOpened: boolean
 };
 
 class AddChildInterface extends React.PureComponent<IProps, IState> {
     public state = {
-        isChildAdded: false
+        isChildAdded: false,
+        isFormOpened: true
     };
 
     public processFormData = (): void => {
@@ -48,20 +50,28 @@ class AddChildInterface extends React.PureComponent<IProps, IState> {
             .catch(err => console.log(err))
     };
 
+    public goBackToUserPage = (): void => {
+        this.setState({isFormOpened: false});
+    };
+
     public render() {
         const {loggedUser} = this.props;
-        const {isChildAdded} = this.state;
+        const {isChildAdded, isFormOpened} = this.state;
         if (loggedUser == null) {
             return <Redirect to="/login" />
         }
         if (isChildAdded) {
             return <Redirect to={`/in/${this.props.loggedUser.id}/children`} />
         }
+        if (!isFormOpened) {
+            return <Redirect to={`/in/${this.props.loggedUser.id}/children`} />
+        }
         return <div>
             <input type="text" ref="_name" required />
             <input type="date" ref="_dateOfBirth" required />
             <input type="text" ref="_placeOfBirth" required />
-            <button onClick={this.processFormData}>adssadsa</button>
+            <button onClick={this.processFormData}>Submit</button>
+            <button onClick={this.goBackToUserPage}>Back</button>
         </div>
     };
 } 
