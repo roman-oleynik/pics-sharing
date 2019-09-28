@@ -1,3 +1,17 @@
-.Child-Item-Container__Photo {
-    width: 150px;
+.Child-Page-Container__Photos {
+    display: flex;
+    flex-wrap: wrap;
+    .Photo-Item {
+        width: 150px;
+        position: relative;
+
+        .Photo-Item__Photo {
+            width: inherit;
+        }
+        .Photo-Item__Delete {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+    }
 }

@@ -1,131 +1,107 @@
 {
-  "data": [
+  "users": [
     {
       "id": "r57rxn28kzonl0ihokgrwfw4",
       "email": "r@a",
       "password": "123qwe1",
       "firstName": "Роман",
-      "lastName": "Олейник",
-      "children": [
-        {
-          "id": "mifkd2ds067dik9ggj8l5kh5",
-          "name": "Roman",
-          "dateOfBirth": "2019-09-03T00:00:00.000Z",
-          "placeOfBirth": "Minsk",
-          "photos": [
-            {
-              "id": "hvv55orp43ladx6yxwxmuk4g",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-162848.jpg?alt=media&token=5e54daff-218c-4bb6-8e0c-0ed18854f6e1",
-              "createdAt": "2019-09-23T18:04:57.249Z"
-            },
-            {
-              "id": "ajtqevvhdxwh24kvtpw636e4",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-162827.jpg?alt=media&token=0cc28e9a-738f-48d0-9e1c-ad3387c12039",
-              "createdAt": "2019-09-23T18:07:34.445Z"
-            },
-            {
-              "id": "lpvgty1jfahzhi5kjvb6t0zl",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-163618.jpg?alt=media&token=d59ddef8-4928-4dba-afa3-44c37ccbcf94",
-              "createdAt": "2019-09-23T18:07:49.719Z"
-            },
-            {
-              "id": "hjfktrtt7o9y5nna7sh8b24j",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71116-214820.jpg?alt=media&token=559e1e74-19a3-42b0-b9ca-eb9fbfe7d871",
-              "createdAt": "2019-09-23T18:08:11.635Z"
-            },
-            {
-              "id": "alny10sg92gu7psr362mjcav",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71122-124318.jpg?alt=media&token=7ca9165f-8e87-47c8-b0a1-08ab0669b52b",
-              "createdAt": "2019-09-23T18:08:41.654Z"
-            },
-            {
-              "id": "376orweczt21uzo1tye9vdfy",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71230-192851.jpg?alt=media&token=e2176eaa-f88d-4599-a685-704e696838e6",
-              "createdAt": "2019-09-23T18:08:58.264Z"
-            },
-            {
-              "id": "caw1ms382w5l9xlnz34fb4vm",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71202-154447.jpg?alt=media&token=ad19a86c-a9eb-4767-9b7c-c7f03b796f69",
-              "createdAt": "2019-09-23T18:09:13.327Z"
-            },
-            {
-              "id": "j7b29sktqm6zjrftjndchy98",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71030-202201.jpg?alt=media&token=221103dc-dc90-4090-8caa-a5b4a5dd74e4",
-              "createdAt": "2019-09-23T18:09:50.426Z"
-            },
-            {
-              "id": "5x21hvfydnrls1xunxx7dcxc",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP80107-222249.jpg?alt=media&token=80459324-d96e-4218-867b-4d9518b32198",
-              "createdAt": "2019-09-23T18:10:18.913Z"
-            }
-          ]
-        },
-        {
-          "id": "jg675qu9luvbun7mskrjjshe",
-          "name": "Ira",
-          "dateOfBirth": "2019-09-04T00:00:00.000Z",
-          "placeOfBirth": "Mnsk",
-          "photos": [
-            {
-              "id": "4k290gk2lut9zqo2lxd6pfrj",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2Fpogboom.jpg?alt=media&token=73e3b1b4-92dc-4b3c-a686-903efc4f48c0",
-              "createdAt": "2019-09-23T18:03:04.603Z"
-            }
-          ]
-        },
-        {
-          "id": "zzwf2jzpeztxzlj55u71kvkk",
-          "name": "Misha",
-          "dateOfBirth": "1996-10-13T00:00:00.000Z",
-          "placeOfBirth": "Minsk",
-          "photos": [
-            {
-              "id": "575rqccyct8zxkczwj4yp1jl",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-115916.jpg?alt=media&token=97b30b40-7a74-4841-b046-656d3f4bc739",
-              "createdAt": "2019-09-23T18:13:07.890Z"
-            },
-            {
-              "id": "kcijxaxb1q034uskl45l0qm8",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71026-121719.jpg?alt=media&token=0db6ce11-786d-404d-8903-4dc0b8319a32",
-              "createdAt": "2019-09-23T19:37:03.650Z"
-            },
-            {
-              "id": "drm7buo151el52kz6exh2hed",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71229-172424.jpg?alt=media&token=d3d64058-4055-4836-ade2-0e64692be157",
-              "createdAt": "2019-09-23T21:14:14.574Z"
-            }
-          ]
-        },
-        {
-          "id": "dkyzal3gupl8dquubtgzu8lt",
-          "name": "Ilya",
-          "dateOfBirth": "2002-03-14T00:00:00.000Z",
-          "placeOfBirth": "Molodovo",
-          "photos": [
-            {
-              "id": "creiccfyn7wdszh0q3076xr7",
-              "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP80201-200302.jpg?alt=media&token=2c6b2241-afc4-47c4-9e16-8848ed8b7fc3",
-              "createdAt": "2019-09-23T18:14:49.724Z"
-            }
-          ]
-        }
-      ]
+      "lastName": "Олейник"
     },
     {
-      "id": "35oepg3dwd33jm2d3gpppz7r",
+      "id": "qwerxn28kzonl0ihokgrwfw4",
+      "email": "r@d",
+      "password": "123qwe1",
+      "firstName": "Рома",
+      "lastName": "Оленик"
+    },
+    {
+      "id": "86u76pqka19imdk9z8kf78ai",
       "email": "raman.alejnik@gmail.com",
       "password": "123qwe1",
-      "firstName": "Роман",
-      "lastName": "Олейник",
-      "children": [
-        {
-          "id": "rp6kpwgcfny2i8t4ysgqoai2",
-          "name": "Germagen",
-          "dateOfBirth": "2019-09-10",
-          "placeOfBirth": "Minsk",
-          "photos": []
-        }
-      ]
+      "firstName": "Takbir",
+      "lastName": "Yambaev"
+    },
+    {
+      "id": "vdt5udf77iz83mlpqd2u6j6m",
+      "email": "daun@gmail.com",
+      "password": "123qwe1",
+      "firstName": "Daun",
+      "lastName": "Daun"
+    }
+  ],
+  "childItems": [
+    {
+      "id": "1234jtbzax65nzc0ffjnede5",
+      "name": "Ira",
+      "dateOfBirth": "2014-01-09T00:00:00.000Z",
+      "placeOfBirth": "Minsk",
+      "userId": "qwerxn28kzonl0ihokgrwfw4"
+    },
+    {
+      "id": "yi8y1e720pgtyjn7s1rmqist",
+      "name": "Roman",
+      "dateOfBirth": "1996-01-31T00:00:00.000Z",
+      "placeOfBirth": "molodowo",
+      "userId": "r57rxn28kzonl0ihokgrwfw4"
+    },
+    {
+      "id": "99auva8deyvku05q5ohl3ibq",
+      "name": "Ira",
+      "dateOfBirth": "1997-02-21T00:00:00.000Z",
+      "placeOfBirth": "Molodowo",
+      "userId": "r57rxn28kzonl0ihokgrwfw4"
+    },
+    {
+      "id": "5dh2fcojszo47ezz97yevb8w",
+      "name": "Yamb",
+      "dateOfBirth": "2001-03-03T00:00:00.000Z",
+      "placeOfBirth": "Bishkek",
+      "userId": "86u76pqka19imdk9z8kf78ai"
+    },
+    {
+      "id": "a16m95fsehm0vtx4lygu2som",
+      "name": "Debik",
+      "dateOfBirth": "1991-12-12T00:00:00.000Z",
+      "placeOfBirth": "Downhill",
+      "userId": "vdt5udf77iz83mlpqd2u6j6m"
+    }
+  ],
+  "photos": [
+    {
+      "id": "39xpc58rzukz33rw2c2v0alk",
+      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2F577284fdeefcb1559757801b.png?alt=media&token=4318a9b0-6a76-4c21-96d5-981541a5b28d",
+      "createdAt": "2019-09-27T18:13:09.398Z",
+      "childItemId": "1234jtbzax65nzc0ffjnede5"
+    },
+    {
+      "id": "pigbhsselc0u3m0nk5nicxz1",
+      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2Fhinata_png_by_hidan_sama1408-d383bo7.png?alt=media&token=62e86e08-fe31-41a4-bdf6-56bc8830f18b",
+      "createdAt": "2019-09-27T18:15:25.783Z",
+      "childItemId": "1234jtbzax65nzc0ffjnede5"
+    },
+    {
+      "id": "m5gn6ucdcszhj2pejb090r7z",
+      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FNaruto_roman.jpg?alt=media&token=de554eed-5339-4639-9def-ac58833f3116",
+      "createdAt": "2019-09-28T21:57:57.176Z",
+      "childItemId": "99auva8deyvku05q5ohl3ibq"
+    },
+    {
+      "id": "4sb0c419w7f1qpb52o4coa5v",
+      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2Flighting_eyes.jpg?alt=media&token=c573014f-0e60-4ebf-80f2-eff3211fa3d5",
+      "createdAt": "2019-09-28T22:03:07.692Z",
+      "childItemId": "5dh2fcojszo47ezz97yevb8w"
+    },
+    {
+      "id": "a2g4ybsm2did5cifaozcn8ze",
+      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2F%D0%A0%D0%BE%D0%BC%D0%B0_%D0%BA%D0%BE%D0%BD%D1%8C.jpg?alt=media&token=18681f43-cb00-44b2-8deb-30845e44f56a",
+      "createdAt": "2019-09-28T22:05:43.720Z",
+      "childItemId": "a16m95fsehm0vtx4lygu2som"
+    },
+    {
+      "id": "j12139lhsff1kfapwcw0014i",
+      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2Flighting_eyes.jpg?alt=media&token=f50c1711-2bc6-4e81-ae93-27ac7c1f93be",
+      "createdAt": "2019-09-28T22:18:34.467Z",
+      "childItemId": "yi8y1e720pgtyjn7s1rmqist"
     }
   ]
 }

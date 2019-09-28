@@ -27,8 +27,7 @@ class App extends React.PureComponent {
                   <Route path='/login' component={LoginComponent} />
                   <Route path='/registration' component={RegistrationComponent} />
                   <Route path='/in/:id/children' exact component={UserPage} />
-                  <Route path='/in/:id/children/add' component={AddChildInterface} />
-                  <Route path='/in/:id/children/:id' component={ChildPage} />
+                  <Route path='/in/:id/children/:childId' component={ChildPage} />
                 </Switch>  
               </BrowserRouter> 
               :

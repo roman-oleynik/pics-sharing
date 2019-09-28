@@ -26,7 +26,7 @@ class HeaderUserWidget extends React.PureComponent<IProps> {
                         {
                             this.props.loggedUser.email.split("").slice(0,1) // write a first letter of email in an avatar block 
                         } 
-                    </div>
+                    </div> 
                     <span className="Logged-User-Widget__Title">{`${firstName} ${lastName}`}</span>
                     <button className="Logged-User-Widget__Log-Out" onClick={this.logOut}>Log Out</button>
             </div>

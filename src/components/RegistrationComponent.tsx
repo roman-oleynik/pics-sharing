@@ -22,17 +22,18 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
 
     public submitFormData = (UserObject: UserObject): void => {
         let data: UserObject[] = [];
-        axios.get('http://localhost:4000/data')
+        axios.get('http://localhost:4000/users')
             .then((res: AxiosResponse) => {
+                console.log(res);
                 data = res.data
                 let isOriginal: boolean = true;
                 data.forEach(el => {
                     if (el.email === UserObject.email) {
                         isOriginal = false;
-                    } 
+                    }
                 });
                 if (isOriginal) {
-                    axios.post('http://localhost:4000/data', UserObject)
+                    axios.post('http://localhost:4000/users', UserObject)
                     .then((res: AxiosResponse) => {
                         res && this.setState({isSuccessful: true})
                     })
@@ -60,8 +61,7 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
             email: _email.value,
             password: _password.value,
             firstName: _firstName.value,
-            lastName: _lastName.value,
-            children: []
+            lastName: _lastName.value
         }
         this.validatePasswordOfUserObject(UserObject);
     };

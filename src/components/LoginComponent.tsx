@@ -37,12 +37,14 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
     };
 
     private submitFormData = (UserObject: UserObject): void => {
-        axios.get('http://localhost:4000/data')
+        axios.get('http://localhost:4000/users')
             .then(res => {
                 const users = res.data;
                 const loggedUser = this.findUserInTheServer(users, UserObject);
+
                 if (loggedUser) {
-                    this.props.dispatch(ACT_AUTHORIZE_USER(loggedUser))
+                    this.props.dispatch(ACT_AUTHORIZE_USER(loggedUser));
+                    // console.log(this.props.loggedUser)
                 }
             })
             .catch(err => console.log(err))
@@ -65,8 +67,7 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
             email: _email.value,
             password: _password.value,
             firstName: "",
-            lastName: "",
-            children: []
+            lastName: ""
         };
         this.validatePasswordOfUserObject(UserObject);
     };

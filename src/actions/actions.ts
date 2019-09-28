@@ -1,4 +1,22 @@
-import {UserObject, AOAuthorizeUser, AOGetUser, AOAddChild, AOAddChildPhoto, AOLogOut, LOG_OUT, ADD_CHILD, AUTHORIZE_USER, GET_USER, ADD_CHILD_PHOTO} from '../types/types';
+import {
+    UserObject, 
+    Child,
+    AOAuthorizeUser, 
+    AOGetUserData, 
+    AOGetPhotosData, 
+    AOGetChildrenData, 
+    AOAddChild, 
+    AOAddChildPhoto, 
+    AOLogOut, 
+    LOG_OUT, 
+    ADD_CHILD, 
+    AUTHORIZE_USER, 
+    ADD_CHILD_PHOTO, 
+    GET_USER_DATA, 
+    GET_CHILDREN_DATA,
+    GET_PHOTOS_DATA,
+    ChildPhoto
+} from '../types/types';
 
 export function ACT_AUTHORIZE_USER(user: UserObject): AOAuthorizeUser {
     return {
@@ -6,24 +24,42 @@ export function ACT_AUTHORIZE_USER(user: UserObject): AOAuthorizeUser {
         body: user
     }
 }
-export function ACT_GET_USER(user: UserObject): AOGetUser {
+export function ACT_GET_USER_DATA(user: UserObject): AOGetUserData {
     return {
-        type: GET_USER,
+        type: GET_USER_DATA,
         body: user
     }
 }
-export function ACT_ADD_CHILD(user: UserObject): AOAddChild {
+export function ACT_GET_CHILDREN_DATA(children: Child[]): AOGetChildrenData {
+    return {
+        type: GET_CHILDREN_DATA,
+        body: children
+    }
+}
+export function ACT_GET_PHOTOS_DATA(photos: ChildPhoto[]): AOGetPhotosData {
+    return {
+        type: GET_PHOTOS_DATA,
+        body: photos
+    }
+}
+export function ACT_ADD_CHILD(children: Child[]): AOAddChild {
     return {
         type: ADD_CHILD,
-        body: user
+        body: children
     }
 }
-export function ACT_ADD_CHILD_PHOTO(user: UserObject): AOAddChildPhoto {
+export function ACT_ADD_CHILD_PHOTO(photo: ChildPhoto[]): AOAddChildPhoto {
     return {
         type: ADD_CHILD_PHOTO,
-        body: user
+        body: photo
     }
 }
+// export function ACT_DELETE_CHILD_PHOTO(user: UserObject): AODeleteChildPhoto {
+//     return {
+//         type: DELETE_CHILD_PHOTO,
+//         body: user
+//     }
+// }
 export function ACT_LOG_OUT(): AOLogOut {
     return {
         type: LOG_OUT
