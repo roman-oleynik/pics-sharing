@@ -2,8 +2,11 @@ import React from 'react';
 import './HeaderUserWidget.scss';
 import {Store, UserObject} from '../types/types';
 import {ACT_LOG_OUT} from '../actions/actions';
-import {Redirect} from 'react-router-dom';
+import {Redirect, NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 interface IProps {
     loggedUser: UserObject,
@@ -27,8 +30,10 @@ class HeaderUserWidget extends React.PureComponent<IProps> {
                             this.props.loggedUser.email.split("").slice(0,1) // write a first letter of email in an avatar block 
                         } 
                     </div> 
-                    <span className="Logged-User-Widget__Title">{`${firstName} ${lastName}`}</span>
-                    <button className="Logged-User-Widget__Log-Out" onClick={this.logOut}>Log Out</button>
+                    <NavLink to={`/in/${this.props.loggedUser.id}/children`} className="Logged-User-Widget__Title">{`${firstName} ${lastName}`}</NavLink>
+                    <button className="Logged-User-Widget__Log-Out" onClick={this.logOut}>
+                        <FontAwesomeIcon icon={faSignOutAlt} size="lg" /> 
+                    </button>
             </div>
     };    
 }

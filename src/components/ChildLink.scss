@@ -1,0 +1,24 @@
+.Child-Item-Container {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    .Child-Item-Container__Child-Link {
+        display: flex;
+        text-decoration: none;
+        .Child-Item-Container__Avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .Child-Item-Container__Child-Name {
+            font-size: 1.2em;
+        }
+    }
+    
+    .Child-Item-Container__Delete {
+        background: transparent;
+        border: 0;
+        padding: 3px;
+    }
+}

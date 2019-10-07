@@ -22,4 +22,13 @@ $borderRadiusCircle: 50%;
         text-align: center;
         text-transform: uppercase;
     }
+    .Logged-User-Widget__Title {
+        text-decoration: none;
+        color: #000;
+    }
+    .Logged-User-Widget__Log-Out {
+        background: transparent;
+        border: 0;
+        margin: 5px;
+    }
 }

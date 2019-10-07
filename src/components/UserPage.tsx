@@ -6,7 +6,7 @@ import {generateId} from '../modules/generateId';
 import {Redirect, NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios, { AxiosResponse, AxiosError } from 'axios';
-import ChildItem from './ChildItem';
+import ChildLink from './ChildLink';
 
 // import AddChildInterface from './AddChildInterface';
 
@@ -114,7 +114,7 @@ class UserPage extends React.PureComponent<IProps, IState> {
                                 (loggedUser && userChildren && userChildren.length !== 0) 
                                 ? 
                                 userChildren.map((child: Child) => {
-                                    return <ChildItem key={child.id} childInfo={child} />
+                                    return <ChildLink key={child.id} childInfo={child} />
                                 })
                                 :
                                 (loggedUser && userChildren && userChildren.length === 0) 

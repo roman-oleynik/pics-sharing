@@ -6,7 +6,9 @@ import {
     AOGetPhotosData, 
     AOGetChildrenData, 
     AOAddChild, 
-    AOAddChildPhoto, 
+    AOAddChildPhoto,
+    AOConnectAppToTheInternet,
+    AOConnectAppToTheServer,
     AOLogOut, 
     LOG_OUT, 
     ADD_CHILD, 
@@ -15,9 +17,25 @@ import {
     GET_USER_DATA, 
     GET_CHILDREN_DATA,
     GET_PHOTOS_DATA,
-    ChildPhoto
+    CONNECT_APP_TO_THE_INTERNET,
+    CONNECT_APP_TO_THE_SERVER,
+    ChildPhoto,
+    InternetConnectionStatus, 
+    ServerConnectionStatus
 } from '../types/types';
 
+export function ACT_CONNECT_APP_TO_THE_INTERNET(status: InternetConnectionStatus): AOConnectAppToTheInternet {
+    return {
+        type: CONNECT_APP_TO_THE_INTERNET,
+        status
+    }
+}
+export function ACT_CONNECT_APP_TO_THE_SERVER(status: ServerConnectionStatus): AOConnectAppToTheServer {
+    return {
+        type: CONNECT_APP_TO_THE_SERVER,
+        status
+    }
+}
 export function ACT_AUTHORIZE_USER(user: UserObject): AOAuthorizeUser {
     return {
         type: AUTHORIZE_USER,

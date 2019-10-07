@@ -1,0 +1,72 @@
+.Child-Page-Container__Photos-Container {
+    width: 100%;
+    overflow: scroll;
+    .Child-Page-Container__Photos {
+        min-width: 1500px;
+        display: flex;
+        align-items: flex-start;
+        
+        .Photo-Item {
+            width: 200px;
+            margin: 20px;
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+
+            .Photo-Item__Photo {
+                width: inherit;
+            }
+            .Photo-Item__Edit {
+                position: absolute;
+                top: 5px;
+                right: 35px;
+                background: #ffffff;
+                border: 1px solid #000;
+                padding: 3px;
+                text-decoration: none;
+                color: #000;
+                border-radius: 3px;
+            }
+            .Photo-Item__Delete {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: transparent;
+                border: 0;
+                border-radius: 50%;
+                transition: 0.5s;
+            }
+            .Photo-Item__Age-Label {
+                height: 30px;
+                line-height: 30px;
+                position: absolute;
+                bottom: 0px;
+                width: 100%;
+                text-align: center;
+                background: rgba(0,0,0,1);
+                color: #fff;
+            }
+        }
+    }
+}
+
+.Load-Image-Interface {
+    .Load-Image-Interface__Label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 140px;
+        height: 200px;
+        width: 200px;
+        border: 2px solid salmon;
+        color: salmon;
+        font-weight: bold;
+        border-radius: 5px;
+
+        .Load-Image-Interface__Input-File {
+            height: 1px;
+            width: 1px;
+        }
+    }
+    
+}

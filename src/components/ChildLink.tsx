@@ -1,10 +1,13 @@
 import React from 'react';
-import './ChildItem.scss';
+import './ChildLink.scss';
 import {ACT_GET_USER_DATA, ACT_GET_CHILDREN_DATA} from '../actions/actions';
 import {Store, UserObject, Child, ChildPhoto} from '../types/types';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 interface IProps {
     loggedUser: UserObject,
@@ -37,11 +40,15 @@ class ChildItem extends React.PureComponent<IProps> {
     }
 
     public render() {
+        const childAvatar: ChildPhoto | false | undefined = this.props.userPhotos && this.props.userPhotos.length > 0 && this.props.userPhotos.find((photo: ChildPhoto) => photo.childItemId === this.props.childInfo.id);
         return <div className="Child-Item-Container">
                 <NavLink className="Child-Item-Container__Child-Link" to={`/in/${this.props.loggedUser.id}/children/${this.props.childInfo.id}`}>
-                    <h2 className="Child-Item-Container__Child-Name">{`${this.props.childInfo.name} (${Math.round(this.age.years)} years)`}</h2>
+                    <img className="Child-Item-Container__Avatar" src={childAvatar ? childAvatar.src : "/img/noname.png"} alt="avatar"/>
+                    <h2 className="Child-Item-Container__Child-Name">{`${this.props.childInfo.name} (${Math.round(this.age.years)} y.o.)`}</h2>
                 </NavLink>
-                <button className="Child-Item-Container__Delete" onClick={this.removeChild}>Delete</button>
+                <button className="Child-Item-Container__Delete" onClick={this.removeChild}>
+                    <FontAwesomeIcon icon={faTrash} size="lg" />
+                </button>
             </div>
     }
 } 
