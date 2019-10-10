@@ -16,6 +16,12 @@ const Navbar = (props: IProps) => {
                 <span className="Logo__Title">childbunch</span>
         </NavLink>
         {
+            props.loggedUser === null && <nav className="Navigation">
+                <NavLink to="/about" className="Navigation__Item Navigation__Item_About"><span>About</span></NavLink>
+                <NavLink to="/contact" className="Navigation__Item Navigation__Item_Contact"><span>Contact</span></NavLink>
+            </nav>
+        }
+        {
             props.loggedUser === null && <section className="Sign-In-Up-Section">
                 <NavLink to="/login" className="Header-Container__Sign-In-Button"><button>Sign In</button></NavLink>
                 <NavLink to="/registration" className="Header-Container__Sign-Up-Button"><button>Sign Up</button></NavLink>

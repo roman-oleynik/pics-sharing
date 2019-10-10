@@ -198,7 +198,7 @@ describe('tests of userChildrenReducer', () => {
     const AO = {type: LOG_OUT};
 
     expect(userChildrenReducer(childrenState, AO))
-      .toBe(null);
+      .toEqual([]);
   });
 
 });

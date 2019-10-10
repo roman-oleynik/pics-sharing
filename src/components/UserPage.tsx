@@ -51,8 +51,6 @@ class UserPage extends React.PureComponent<IProps, IState> {
     public getUser = (id: string): void => {
         axios.get(`http://localhost:4000/users/${id}`)
             .then((res: AxiosResponse) => {
-                // console.log(res)
-                
                 this.props.dispatch(ACT_GET_USER_DATA(res.data))
             })
             .catch((err: AxiosError) => console.log(err))
@@ -133,12 +131,11 @@ class UserPage extends React.PureComponent<IProps, IState> {
             placeOfBirth: _placeOfBirth.value,
             userId: this.state.childOnEditing.userId
         };
-        console.log(childObj)
         this.setState({childOnEditing: childObj});
     }
 
     public render() {
-        const {loggedUser, userChildren, userPhotos} = this.props;
+        const {loggedUser, userChildren} = this.props;
         if (loggedUser === null) {
             return <Redirect to="/login" />
         }
@@ -150,7 +147,7 @@ class UserPage extends React.PureComponent<IProps, IState> {
                             <h2 className="Add-Child-Interface__Title">Children</h2>
                             <section className="Add-Child-Interface__Child-List">
                             {
-                                (loggedUser && userChildren && userChildren.length !== 0) 
+                                (loggedUser && userChildren.length !== 0) 
                                 ? 
                                 userChildren.map((child: Child) => {
                                     return <ChildLink 
@@ -160,7 +157,7 @@ class UserPage extends React.PureComponent<IProps, IState> {
                                     />
                                 })
                                 :
-                                (loggedUser && userChildren && userChildren.length === 0) 
+                                (loggedUser && userChildren.length === 0)
                                 ?
                                 <div>Children list is empty</div>
                                 :

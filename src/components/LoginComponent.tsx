@@ -44,7 +44,6 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
 
                 if (loggedUser) {
                     this.props.dispatch(ACT_AUTHORIZE_USER(loggedUser));
-                    // console.log(this.props.loggedUser)
                 }
             })
             .catch(err => console.log(err))
@@ -60,6 +59,7 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
 
     public processFormData = (EO: FormEvent): void => {
         EO.preventDefault();
+        EO.stopPropagation();
         const {_email}: any = this.refs; 
         const {_password}: any = this.refs; 
         const UserObject: UserObject = {
@@ -93,14 +93,13 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                         this.state.formStatus === "userNotFound" && 
                         <div className="User-Not-Found">User Not Found</div>
                     }
-                    
                     <form className="Login-Component-Form" onSubmit={this.processFormData}>
                         <div className="Login-Input-Container">
-                            <label className="Login-Input-Container__Label">Email: <br/>
-                                <input ref="_email" type="email" required />
+                            <label className="Login-Input-Container__Label">Email : <br/>
+                                <input type="email" className="Login-Input-Container__Input" ref="_email" placeholder="some@mail.com" required />
                             </label>
-                            <label className="Login-Input-Container__Label">Password: <br/>
-                                <input ref="_password" type="password" placeholder="More than 6 symbols" required />
+                            <label className="Login-Input-Container__Label">Password : <br/>
+                                <input className="Login-Input-Container__Input" ref="_password" type="password" placeholder="More than 6 symbols" required />
                             </label>
                         </div>
 
@@ -110,7 +109,12 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                         </div>
                         
                     </form>
-                    <NavLink to="/registration">Registration</NavLink>
+                    <hr/>
+                    <br/>
+                    <span className="Login-Component-Container__Registartion-Row">
+                        Don't have an account?  
+                        <NavLink to="/registration" className="Login-Component-Container__Registartion-Link">Sign Up</NavLink>
+                    </span>
                 </div>
         </React.Fragment>
        

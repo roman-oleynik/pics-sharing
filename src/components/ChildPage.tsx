@@ -143,7 +143,7 @@ class ChildPage extends React.PureComponent<IProps, IState> {
                   {
                     loggedUser && 
                     userChildren && 
-                    userPhotos && 
+                    userPhotos.length > 0 && 
                     userPhotos
                     .filter((photo: ChildPhoto) => {
                       return photo.childItemId === this.props.match.params.childId;   

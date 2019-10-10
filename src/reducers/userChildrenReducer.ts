@@ -1,6 +1,6 @@
 import {ADD_CHILD, EDIT_CHILD_DATA, GET_CHILDREN_DATA, LOG_OUT, Child, ActionObject} from '../types/types';
 
-export function userChildrenReducer(state: Child[] | null = null, action: ActionObject): Child[] | null {
+export function userChildrenReducer(state: Child[] = [], action: ActionObject): Child[] {
     if (action.type === ADD_CHILD) {
         let newState = [...state as Child[]]
         newState = [...state as Child[], action.body];
@@ -17,7 +17,7 @@ export function userChildrenReducer(state: Child[] | null = null, action: Action
         newState = action.body;
         return newState;
     } else if (action.type === LOG_OUT) {
-        return null;
+        return [];
     } else {
         return state;
     }

@@ -44,9 +44,11 @@ class App extends React.PureComponent<IProps> {
   };
 
   public render() {
-    console.log(this.props.hasInternetConnection)
-    console.log(this.props.hasServerConnection)
-    return <main className="App">
+    const divStyle = {
+      background: 'url(./img/main-screen-picture.jpg) no-repeat center center',
+      backgroundSize: "cover"
+    };
+    return <div className="App" style={divStyle}>
             {
               this.props.hasInternetConnection === InternetConnectionStatus.Connection 
               ||
@@ -88,7 +90,7 @@ class App extends React.PureComponent<IProps> {
               : null
             }
             
-      </main>
+      </div>
   }
 }
 

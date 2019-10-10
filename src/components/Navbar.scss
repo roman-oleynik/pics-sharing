@@ -1,65 +1,85 @@
 $fullWidth: 100%;
 $fullHeight: 100vh;
 
-$paddingMin: 5px;
 $marginMin: 5px;
-$borderRadiusMin: 5px;
 $borderRadiusCircle: 50%;
 
-$color: rgb(223, 200, 200);
+$color: rgba(0,0,0,0.05);
+$violet: #a054c6;
+
+@mixin flex($j-content: flex-start, $a-items:stretch) {
+    display: flex;
+    justify-content: $j-content;
+    align-items: $a-items;
+}
 
 .Header-Container {
     height: 0.1 * $fullHeight;
     width: $fullWidth;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flex(space-between, center);
     background: $color;
 
     .Logo {
-        display: flex;
-        align-items: center;
+        @include flex(flex-start, center);
         margin: 0 100px;
         text-decoration: none;
         color: rgb(150, 82, 150);
         .Logo__Image {
             height: 30px;
             width: 30px;
-            
-    
         }
-    
         .Logo__Title {
-            font-size: 1.4em;
+            font-size: 1.7em;
+            font-weight: bold;
             text-align: center;
+        }
+    }
+    .Navigation {
+        @include flex(flex-start, center);
+        .Navigation__Item {
+            padding-right: 20px;
+            text-decoration: none;
+            color: gray;
+            font-weight: medium;
+        }
+        .Navigation__Item:not(:last-child) {
+            border-right: 1px solid gray;
+        }
+        .Navigation__Item:not(:first-child) {
+            padding-left: 20px;
+        }
+        .Navigation__Item:hover>span {
+            border-bottom: 2px solid $violet;
         }
     }
     .Sign-In-Up-Section {
         margin: 0 100px;
 
         .Header-Container__Sign-In-Button {
-            margin-right: 100px;
-            
+            margin-right: 20px;
             button {
-                font-size: 1.3em;
+                font-size: 0.9em;
+                font-weight: bold;
                 text-align: center;
-                margin: $marginMin;
-                padding: $paddingMin;
-                border-radius: $borderRadiusMin;
+                height: 36px;
+                width: 106px;
                 background: transparent;
-                border: 0;
+                border: 2px solid $violet;
+                color: $violet;
+                border-radius: 17px;
             }
         }
         .Header-Container__Sign-Up-Button {
-            
             button {
-                font-size: 1.3em;
+                font-size: 0.9em;
+                font-weight: bold;
                 text-align: center;
-                margin: $marginMin;
-                padding: $paddingMin;
-                border-radius: $borderRadiusMin;
-                background: transparent;
-                border: 0;
+                background: $violet;
+                height: 36px;
+                width: 106px;
+                border: 2px solid $violet;
+                color: #fff;
+                border-radius: 17px;
             }
         }
         

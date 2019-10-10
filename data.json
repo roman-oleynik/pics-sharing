@@ -59,18 +59,18 @@
       "userId": "vdt5udf77iz83mlpqd2u6j6m"
     },
     {
-      "id": "xt8l82u30mmmnukk8zuo5zkk",
-      "name": "Roman",
-      "dateOfBirth": "1996-01-31",
-      "placeOfBirth": "Minsk",
-      "userId": "r57rxn28kzonl0ihokgrwfw4"
-    },
-    {
       "id": "8e8b2n30ytez7gmyaxl1aisa",
       "name": "Karl",
       "dateOfBirth": "2006-05-12T00:00:00.000Z",
       "placeOfBirth": "Malmo",
       "userId": "f3psxsop3lonxhy3nvvdmrqn"
+    },
+    {
+      "id": "h73v8v721epeviv4zzhdamxh",
+      "name": "Roman",
+      "dateOfBirth": "1996-01-31",
+      "placeOfBirth": "Minsk",
+      "userId": "r57rxn28kzonl0ihokgrwfw4"
     }
   ],
   "photos": [
@@ -97,6 +97,12 @@
       "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2F%D0%A0%D0%BE%D0%BC%D0%B0_%D0%BA%D0%BE%D0%BD%D1%8C.jpg?alt=media&token=18681f43-cb00-44b2-8deb-30845e44f56a",
       "createdAt": "2019-09-28T22:05:43.720Z",
       "childItemId": "a16m95fsehm0vtx4lygu2som"
+    },
+    {
+      "id": "o0jo1if9h1fg63xcadcrrdnh",
+      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-162656.jpg?alt=media&token=479e2ab6-86ff-49c7-abae-25fd13838276",
+      "createdAt": "2019-10-10T16:46:29.493Z",
+      "childItemId": "h73v8v721epeviv4zzhdamxh"
     }
   ]
 }

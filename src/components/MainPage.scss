@@ -1,3 +1,5 @@
+$violet: #a054c6;
+
 
 .Main-Screen {
     position: relative;
@@ -5,12 +7,12 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
     .Main-Screen__Title {
         font-size: 5em;
-        color: #000;
-    }
-    .Main-Screen__Picture {
-        height: 600px;
+        color: rgb(248, 204, 241);
+        opacity: 0.9;
+        text-shadow: 1px 1px 2px $violet;
+        margin-left: 10%;
+        
     }
 }
