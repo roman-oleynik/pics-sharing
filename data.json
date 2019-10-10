@@ -61,7 +61,7 @@
     {
       "id": "xt8l82u30mmmnukk8zuo5zkk",
       "name": "Roman",
-      "dateOfBirth": "1996-01-31T00:00:00.000Z",
+      "dateOfBirth": "1996-01-31",
       "placeOfBirth": "Minsk",
       "userId": "r57rxn28kzonl0ihokgrwfw4"
     },
@@ -97,36 +97,6 @@
       "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2F%D0%A0%D0%BE%D0%BC%D0%B0_%D0%BA%D0%BE%D0%BD%D1%8C.jpg?alt=media&token=18681f43-cb00-44b2-8deb-30845e44f56a",
       "createdAt": "2019-09-28T22:05:43.720Z",
       "childItemId": "a16m95fsehm0vtx4lygu2som"
-    },
-    {
-      "id": "u5fhhotp7a37slpla6hdbvpu",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-162730.jpg?alt=media&token=4bc8d12a-f88c-48c7-838f-88fc1701d1f5",
-      "createdAt": "2019-10-07T19:35:32.960Z",
-      "childItemId": "xt8l82u30mmmnukk8zuo5zkk"
-    },
-    {
-      "id": "i5fp3df8asvmsp0btelrpgmv",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-115916.jpg?alt=media&token=5f768bdc-d5eb-4eb5-b169-a9d12d8be9cb",
-      "createdAt": "2019-10-07T19:46:33.016Z",
-      "childItemId": "xt8l82u30mmmnukk8zuo5zkk"
-    },
-    {
-      "id": "cp600vf40cfjf2gd748v9bdm",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-162656.jpg?alt=media&token=7b2ab51a-5685-4558-a41f-b2b574857926",
-      "createdAt": "2019-10-07T19:46:33.016Z",
-      "childItemId": "xt8l82u30mmmnukk8zuo5zkk"
-    },
-    {
-      "id": "zetoa8h362jli0pqvxgg51gz",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-163033.jpg?alt=media&token=9822cf90-1c96-4c5c-a862-3f532f5809e4",
-      "createdAt": "2019-10-07T19:48:40.802Z",
-      "childItemId": "xt8l82u30mmmnukk8zuo5zkk"
-    },
-    {
-      "id": "xmz5la912xp50u8pu5j3abgx",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71102-174200.jpg?alt=media&token=f30c72f2-ee82-4e6e-96a7-29dde4066ac3",
-      "createdAt": "2019-10-07T19:48:40.802Z",
-      "childItemId": "xt8l82u30mmmnukk8zuo5zkk"
     }
   ]
 }

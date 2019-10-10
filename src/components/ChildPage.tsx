@@ -93,8 +93,7 @@ class ChildPage extends React.PureComponent<IProps, IState> {
     axios.post(`http://localhost:4000/photos`, newPhoto)
       .then((res: AxiosResponse) => {
         console.log(res);
-        const arrayWithNewPhotos: ChildPhoto[] = [...this.props.userPhotos, res.data]
-        this.props.dispatch(ACT_ADD_CHILD_PHOTO(arrayWithNewPhotos));
+        this.props.dispatch(ACT_ADD_CHILD_PHOTO(res.data));
       })
       .catch((err: AxiosError) => console.log(err));
   };

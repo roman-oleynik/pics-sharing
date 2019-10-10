@@ -16,7 +16,6 @@ import LoginComponent from './LoginComponent';
 import RegistrationComponent from './RegistrationComponent';
 import UserPage from './UserPage';
 import ChildPage from './ChildPage';
-import AddChildInterface from './AddChildInterface';
 import Offline from './Offline';
 
 interface IProps {

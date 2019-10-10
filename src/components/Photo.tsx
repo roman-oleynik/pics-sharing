@@ -1,7 +1,7 @@
 import React from 'react';
 import './Photo.scss';
 import {Child, UserObject, ChildPhoto, Store,} from '../types/types';
-import {ACT_GET_PHOTOS_DATA} from '../actions/actions';
+import {ACT_DELETE_CHILD_PHOTO, ACT_GET_PHOTOS_DATA} from '../actions/actions';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
@@ -38,12 +38,7 @@ class Photo extends React.PureComponent<IProps, IState> {
         axios.delete(`http://localhost:4000/photos/${this.props.photoData.id}`)
             .then((res) => {
                 console.log(res);
-                let updPhotosList: ChildPhoto[] = [];
-                this.props.userPhotos && this.props.userPhotos.forEach((photo: ChildPhoto) => {
-                    photo.id !== this.props.photoData.id && updPhotosList.push(photo);
-                });
-
-                this.props.dispatch(ACT_GET_PHOTOS_DATA(updPhotosList));
+                this.props.dispatch(ACT_DELETE_CHILD_PHOTO(this.props.photoData));
             })
             .catch((err) => console.log(err));
     };

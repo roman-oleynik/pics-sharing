@@ -6,15 +6,16 @@ import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 interface IProps {
     loggedUser: UserObject,
     userChildren: Child[],
     userPhotos: ChildPhoto[],
     childInfo: Child,
-    dispatch: any
+    dispatch: any,
+    turnOnChildMode: (child: Child) => void
 };
 
 class ChildItem extends React.PureComponent<IProps> {
@@ -25,10 +26,8 @@ class ChildItem extends React.PureComponent<IProps> {
     };
 
     public removeChild = (): void => {
-
         axios.delete(`http://localhost:4000/childItems/${this.props.childInfo.id}`)
             .then((res) => {
-                console.log(res);
                 let updChildrenList: Child[] = [];
                 this.props.userChildren && this.props.userChildren.forEach((child: Child) => {
                     child.id !== this.props.childInfo.id && updChildrenList.push(child);
@@ -37,7 +36,11 @@ class ChildItem extends React.PureComponent<IProps> {
                 this.props.dispatch(ACT_GET_CHILDREN_DATA(updChildrenList));
             })
             .catch((err) => console.log(err));
-    }
+    };
+
+    public turnOnEditMode = () => {
+        this.props.turnOnChildMode(this.props.childInfo);
+    };
 
     public render() {
         const childAvatar: ChildPhoto | false | undefined = this.props.userPhotos && this.props.userPhotos.length > 0 && this.props.userPhotos.find((photo: ChildPhoto) => photo.childItemId === this.props.childInfo.id);
@@ -46,6 +49,9 @@ class ChildItem extends React.PureComponent<IProps> {
                     <img className="Child-Item-Container__Avatar" src={childAvatar ? childAvatar.src : "/img/noname.png"} alt="avatar"/>
                     <h2 className="Child-Item-Container__Child-Name">{`${this.props.childInfo.name} (${Math.round(this.age.years)} y.o.)`}</h2>
                 </NavLink>
+                <button className="Child-Item-Container__Edit" onClick={this.turnOnEditMode}>
+                    <FontAwesomeIcon icon={faEdit} size="lg" />
+                </button>
                 <button className="Child-Item-Container__Delete" onClick={this.removeChild}>
                     <FontAwesomeIcon icon={faTrash} size="lg" />
                 </button>

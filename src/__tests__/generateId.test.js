@@ -1,13 +1,14 @@
-import {generateId} from '../modules/generateId'
+import {generateId} from '../modules/generateId';
 
-// test('check the generation of ID', () => {
+describe("genereteIdTests", () => {
 
-//     expect(generateId().length).toBe(24);
-  
-//   });
-
-describe("test", () => {
-  it('test', () => {
+  it('test of calling generateId without argument', () => {
     expect(generateId().length).toBe(24);
-  })
+  });
+
+  it('test of calling generateId with argument', () => {
+    const id = "12345678";
+    expect(generateId(id)).toBe(id);
+  });
+
 })

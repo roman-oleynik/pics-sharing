@@ -30,7 +30,7 @@ class HeaderUserWidget extends React.PureComponent<IProps> {
                             this.props.loggedUser.email.split("").slice(0,1) // write a first letter of email in an avatar block 
                         } 
                     </div> 
-                    <NavLink to={`/in/${this.props.loggedUser.id}/children`} className="Logged-User-Widget__Title">{`${firstName} ${lastName}`}</NavLink>
+                    <NavLink to={`/in/${this.props.loggedUser.id}/children`} className="Logged-User-Widget__Title">{`${firstName}`}</NavLink>
                     <button className="Logged-User-Widget__Log-Out" onClick={this.logOut}>
                         <FontAwesomeIcon icon={faSignOutAlt} size="lg" /> 
                     </button>

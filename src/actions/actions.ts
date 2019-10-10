@@ -5,8 +5,10 @@ import {
     AOGetUserData, 
     AOGetPhotosData, 
     AOGetChildrenData, 
+    AOEditChildData, 
     AOAddChild, 
     AOAddChildPhoto,
+    AODeleteChildPhoto,
     AOConnectAppToTheInternet,
     AOConnectAppToTheServer,
     AOLogOut, 
@@ -16,7 +18,9 @@ import {
     ADD_CHILD_PHOTO, 
     GET_USER_DATA, 
     GET_CHILDREN_DATA,
+    EDIT_CHILD_DATA,
     GET_PHOTOS_DATA,
+    DELETE_CHILD_PHOTO,
     CONNECT_APP_TO_THE_INTERNET,
     CONNECT_APP_TO_THE_SERVER,
     ChildPhoto,
@@ -54,30 +58,36 @@ export function ACT_GET_CHILDREN_DATA(children: Child[]): AOGetChildrenData {
         body: children
     }
 }
+export function ACT_EDIT_CHILD_DATA(child: Child): AOEditChildData {
+    return {
+        type: EDIT_CHILD_DATA,
+        body: child
+    }
+}
 export function ACT_GET_PHOTOS_DATA(photos: ChildPhoto[]): AOGetPhotosData {
     return {
         type: GET_PHOTOS_DATA,
         body: photos
     }
 }
-export function ACT_ADD_CHILD(children: Child[]): AOAddChild {
+export function ACT_ADD_CHILD(child: Child): AOAddChild {
     return {
         type: ADD_CHILD,
-        body: children
+        body: child
     }
 }
-export function ACT_ADD_CHILD_PHOTO(photo: ChildPhoto[]): AOAddChildPhoto {
+export function ACT_ADD_CHILD_PHOTO(photo: ChildPhoto): AOAddChildPhoto {
     return {
         type: ADD_CHILD_PHOTO,
         body: photo
     }
 }
-// export function ACT_DELETE_CHILD_PHOTO(user: UserObject): AODeleteChildPhoto {
-//     return {
-//         type: DELETE_CHILD_PHOTO,
-//         body: user
-//     }
-// }
+export function ACT_DELETE_CHILD_PHOTO(photo: ChildPhoto): AODeleteChildPhoto {
+    return {
+        type: DELETE_CHILD_PHOTO,
+        body: photo
+    }
+}
 export function ACT_LOG_OUT(): AOLogOut {
     return {
         type: LOG_OUT

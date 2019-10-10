@@ -97,7 +97,7 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                     <form className="Login-Component-Form" onSubmit={this.processFormData}>
                         <div className="Login-Input-Container">
                             <label className="Login-Input-Container__Label">Email: <br/>
-                                <input ref="_email" type="email" placeholder="E-mail" required />
+                                <input ref="_email" type="email" required />
                             </label>
                             <label className="Login-Input-Container__Label">Password: <br/>
                                 <input ref="_password" type="password" placeholder="More than 6 symbols" required />

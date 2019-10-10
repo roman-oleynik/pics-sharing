@@ -11,5 +11,11 @@ $fullScreenWidth: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        .Add-Child-Interface {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
     }
 }
