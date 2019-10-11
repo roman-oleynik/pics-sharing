@@ -44,11 +44,8 @@ class App extends React.PureComponent<IProps> {
   };
 
   public render() {
-    const divStyle = {
-      background: 'url(./img/main-screen-picture.jpg) no-repeat center center',
-      backgroundSize: "cover"
-    };
-    return <div className="App" style={divStyle}>
+    
+    return <div className="App">
             {
               this.props.hasInternetConnection === InternetConnectionStatus.Connection 
               ||
@@ -67,7 +64,6 @@ class App extends React.PureComponent<IProps> {
               ?
 
               <BrowserRouter>
-                <Navbar />
                 <Switch>
                   <Route path="/" exact component={MainPage} />
                   <Route path='/login' component={LoginComponent} />

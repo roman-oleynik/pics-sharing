@@ -67,7 +67,8 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
             email: _email.value,
             password: _password.value,
             firstName: "",
-            lastName: ""
+            lastName: "",
+            avatar: ""
         };
         this.validatePasswordOfUserObject(UserObject);
     };
@@ -95,7 +96,7 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                     }
                     <form className="Login-Component-Form" onSubmit={this.processFormData}>
                         <div className="Login-Input-Container">
-                            <label className="Login-Input-Container__Label">Email : <br/>
+                            <label className="Login-Input-Container__Label">E-mail : <br/>
                                 <input type="email" className="Login-Input-Container__Input" ref="_email" placeholder="some@mail.com" required />
                             </label>
                             <label className="Login-Input-Container__Label">Password : <br/>

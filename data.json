@@ -5,66 +5,11 @@
       "email": "r@a",
       "password": "123qwe1",
       "firstName": "Roman",
-      "lastName": "Oleynik"
-    },
-    {
-      "id": "qwerxn28kzonl0ihokgrwfw4",
-      "email": "r@d",
-      "password": "123qwe1",
-      "firstName": "Рома",
-      "lastName": "Оленик"
-    },
-    {
-      "id": "86u76pqka19imdk9z8kf78ai",
-      "email": "raman.alejnik@gmail.com",
-      "password": "123qwe1",
-      "firstName": "Takbir",
-      "lastName": "Yambaev"
-    },
-    {
-      "id": "vdt5udf77iz83mlpqd2u6j6m",
-      "email": "daun@gmail.com",
-      "password": "123qwe1",
-      "firstName": "Daun",
-      "lastName": "Daun"
-    },
-    {
-      "id": "f3psxsop3lonxhy3nvvdmrqn",
-      "email": "zlatan@ibra.com",
-      "password": "11111111",
-      "firstName": "Zlatan",
-      "lastName": "Ibrahimovich"
+      "lastName": "Oleynik",
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2Fcaterpillar%20and%20dud.jpg?alt=media&token=dbcc3a1a-784c-48e8-b52f-eefcbbe6273b"
     }
   ],
   "childItems": [
-    {
-      "id": "1234jtbzax65nzc0ffjnede5",
-      "name": "Ira",
-      "dateOfBirth": "2014-01-09T00:00:00.000Z",
-      "placeOfBirth": "Minsk",
-      "userId": "qwerxn28kzonl0ihokgrwfw4"
-    },
-    {
-      "id": "5dh2fcojszo47ezz97yevb8w",
-      "name": "Yamb",
-      "dateOfBirth": "2001-03-03T00:00:00.000Z",
-      "placeOfBirth": "Bishkek",
-      "userId": "86u76pqka19imdk9z8kf78ai"
-    },
-    {
-      "id": "a16m95fsehm0vtx4lygu2som",
-      "name": "Debik",
-      "dateOfBirth": "1991-12-12T00:00:00.000Z",
-      "placeOfBirth": "Downhill",
-      "userId": "vdt5udf77iz83mlpqd2u6j6m"
-    },
-    {
-      "id": "8e8b2n30ytez7gmyaxl1aisa",
-      "name": "Karl",
-      "dateOfBirth": "2006-05-12T00:00:00.000Z",
-      "placeOfBirth": "Malmo",
-      "userId": "f3psxsop3lonxhy3nvvdmrqn"
-    },
     {
       "id": "h73v8v721epeviv4zzhdamxh",
       "name": "Roman",
@@ -75,33 +20,15 @@
   ],
   "photos": [
     {
-      "id": "39xpc58rzukz33rw2c2v0alk",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2F577284fdeefcb1559757801b.png?alt=media&token=4318a9b0-6a76-4c21-96d5-981541a5b28d",
-      "createdAt": "2019-09-27T18:13:09.398Z",
-      "childItemId": "1234jtbzax65nzc0ffjnede5"
-    },
-    {
-      "id": "pigbhsselc0u3m0nk5nicxz1",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2Fhinata_png_by_hidan_sama1408-d383bo7.png?alt=media&token=62e86e08-fe31-41a4-bdf6-56bc8830f18b",
-      "createdAt": "2019-09-27T18:15:25.783Z",
-      "childItemId": "1234jtbzax65nzc0ffjnede5"
-    },
-    {
-      "id": "4sb0c419w7f1qpb52o4coa5v",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2Flighting_eyes.jpg?alt=media&token=c573014f-0e60-4ebf-80f2-eff3211fa3d5",
-      "createdAt": "2019-09-28T22:03:07.692Z",
-      "childItemId": "5dh2fcojszo47ezz97yevb8w"
-    },
-    {
-      "id": "a2g4ybsm2did5cifaozcn8ze",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2F%D0%A0%D0%BE%D0%BC%D0%B0_%D0%BA%D0%BE%D0%BD%D1%8C.jpg?alt=media&token=18681f43-cb00-44b2-8deb-30845e44f56a",
-      "createdAt": "2019-09-28T22:05:43.720Z",
-      "childItemId": "a16m95fsehm0vtx4lygu2som"
-    },
-    {
       "id": "o0jo1if9h1fg63xcadcrrdnh",
       "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-162656.jpg?alt=media&token=479e2ab6-86ff-49c7-abae-25fd13838276",
       "createdAt": "2019-10-10T16:46:29.493Z",
+      "childItemId": "h73v8v721epeviv4zzhdamxh"
+    },
+    {
+      "id": "es69u6nns0swdddx824ia650",
+      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-163229.jpg?alt=media&token=23de3636-eccf-4254-b3e5-ed78c3b237a3",
+      "createdAt": "2019-10-11T00:00:00.000Z",
       "childItemId": "h73v8v721epeviv4zzhdamxh"
     }
   ]

@@ -6,16 +6,28 @@ import {Redirect, NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 interface IProps {
     loggedUser: UserObject,
     dispatch: any
 };
 
-class HeaderUserWidget extends React.PureComponent<IProps> {
+interface IState {
+    isDropdownOpened: boolean
+}
+
+class HeaderUserWidget extends React.PureComponent<IProps, IState> {
+    readonly state: IState = {
+        isDropdownOpened: false
+    };
+
     public logOut = (): void => {
         this.props.dispatch(ACT_LOG_OUT())
+    };
+
+    public switchDropdown = (): void => {
+        this.setState({isDropdownOpened: !this.state.isDropdownOpened})
     };
 
     public render() {
@@ -24,16 +36,23 @@ class HeaderUserWidget extends React.PureComponent<IProps> {
             return <Redirect to="/" />
         }
 
-        return <div className="Logged-User-Widget">
+        return <div className="Logged-User-Widget" onClick={this.switchDropdown}>
+                    <NavLink to={`/in/${this.props.loggedUser.id}/children`} className="Logged-User-Widget__Title">{`${firstName}`}</NavLink>
+
                     <div className="Logged-User-Widget__Avatar">
                         {
                             this.props.loggedUser.email.split("").slice(0,1) // write a first letter of email in an avatar block 
                         } 
                     </div> 
-                    <NavLink to={`/in/${this.props.loggedUser.id}/children`} className="Logged-User-Widget__Title">{`${firstName}`}</NavLink>
-                    <button className="Logged-User-Widget__Log-Out" onClick={this.logOut}>
-                        <FontAwesomeIcon icon={faSignOutAlt} size="lg" /> 
+                    <button className="Logged-User-Widget__Dropdown-Button">
+                        <FontAwesomeIcon icon={faChevronDown} size="sm" /> 
                     </button>
+                    {
+                        this.state.isDropdownOpened && <div className="Logged-User-Widget__Dropdown">
+                            <button className="Logged-User-Widget__Log-Out" onClick={this.logOut}>Log Out</button>
+                        </div>
+                    }
+                    
             </div>
     };    
 }

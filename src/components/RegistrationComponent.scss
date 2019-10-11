@@ -1,11 +1,16 @@
+@mixin flex($j-content: flex-start, $a-items:stretch) {
+    display: flex;
+    justify-content: $j-content;
+    align-items: $a-items;
+}
 .Registration-Component-Container {
-    height: 300px;
-    width: 300px;
+    height: 500px;
+    width: 250px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: lightsteelblue;
+    background: rgba(0,0,0,0.9);
     padding: 20px;
     box-shadow: 0 0 1000px 500px rgba(0,0,0,0.5);
     display: flex;
@@ -14,6 +19,7 @@
     .Registration-Component-Container__Title {
         text-align: center;
         flex-grow: 1;
+        color: #ccc;
     }
     .Registration-Component-Form {
         display: flex;
@@ -26,9 +32,57 @@
             flex-direction: column;
 
             .Registration-Input-Container__Label {
-                margin: 3px;
-                font-size: 0.8em;
+                margin: 5px;
+                font-size: 0.6em;
+                text-transform: uppercase;
+                color: #ccc;
+
+                .Registration-Input-Container__Input {
+                    width: 200px;
+                    margin-top: 4px;
+                    background: rgba(0,0,0,0.5);
+                    padding: 10px;
+                    border: 0;
+                    border-radius: 12px;
+                    outline-color: transparent;
+                    color: #ccc;
+                }
+                .Registration-Input-Container__Input:focus {
+                    border: 1px solid orange;
+                }
             }
+        }
+    }
+
+    .Registration-Buttons-Container {
+        @include flex(space-between, center);
+        padding-top: 20px;
+        width: 200px;
+
+        .Registration-Component-Form__Submit {
+            flex-grow: 3;
+            margin-right: 20px;
+            background: rgb(51, 247, 51);
+            padding: 8px;
+            border: 0;
+            color: #fff;
+            border-radius: 10px;
+        }
+        .Registration-Component-Form__Cancel {
+            flex-grow: 2;
+            background: rgb(230, 68, 27);
+            padding: 8px;
+            border: 0;
+            color: #fff;
+            border-radius: 10px;
+        }
+    }
+    .Registration-Component-Container__Login-Row {
+        font-size: 12px;
+        color: #ccc;
+        .Registration-Component-Container__Login-Link {
+            color: orange;
+            margin-left: 5px;
         }
     }
 }

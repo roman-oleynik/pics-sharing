@@ -42,7 +42,8 @@ export interface UserObject {
     email: string,
     password: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    avatar: string
 }
 
 export interface AOConnectAppToTheInternet {

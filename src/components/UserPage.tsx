@@ -7,8 +7,9 @@ import {Redirect, NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import ChildLink from './ChildLink';
+import {storage} from '../firebase/firebaseConfig';
+import Navbar from './Navbar';
 
-// import AddChildInterface from './AddChildInterface';
 
 interface IProps {
     loggedUser: UserObject,
@@ -20,7 +21,8 @@ interface IProps {
 
 interface IState {
     pageStatus: PageStatus,
-    childOnEditing: Child
+    childOnEditing: Child,
+    userAvatar: any
 }
 
 enum PageStatus {
@@ -30,7 +32,7 @@ enum PageStatus {
 }
 
 class UserPage extends React.PureComponent<IProps, IState> {
-    public state = {
+    public state: IState = {
         pageStatus: PageStatus.ChildList,
         childOnEditing: {
             id: "",
@@ -38,7 +40,8 @@ class UserPage extends React.PureComponent<IProps, IState> {
             dateOfBirth: new Date(),
             placeOfBirth: "",
             userId: ""
-        }
+        },
+        userAvatar: {}
     };
 
     public componentWillMount = (): void => {
@@ -132,7 +135,43 @@ class UserPage extends React.PureComponent<IProps, IState> {
             userId: this.state.childOnEditing.userId
         };
         this.setState({childOnEditing: childObj});
-    }
+    };
+
+
+    public changeAvatar = (EO: any): void => {
+        console.log(EO.target.files[0]);
+        let image = EO.target.files[0];
+        this.setState({userAvatar: image})
+    };
+    
+    public submitAvatarData = (EO: any): void => {
+        EO.preventDefault();
+        const upload = storage.ref(`images/${this.state.userAvatar.name}`).put(this.state.userAvatar);
+
+        upload.on("state_changed", 
+        (snapshot) => {
+            
+        }, 
+        (err) => {
+                //err
+        }, 
+        () => {
+            storage.ref('images').child(this.state.userAvatar.name).getDownloadURL()
+            .then(url => {
+                console.log(url);
+                const newUserData: UserObject = {
+                    ...this.props.loggedUser,
+                    avatar: url
+                };
+                axios.put(`http://localhost:4000/users/${this.props.loggedUser.id}`, newUserData)
+                    .then((res: AxiosResponse) => this.props.dispatch(ACT_GET_USER_DATA(res.data)))
+                    .catch((err: AxiosError) => console.log(err))
+                
+
+            })
+            .catch(err => console.log(err));
+        });
+    };
 
     public render() {
         const {loggedUser, userChildren} = this.props;
@@ -140,11 +179,20 @@ class UserPage extends React.PureComponent<IProps, IState> {
             return <Redirect to="/login" />
         }
         return loggedUser ? <section className="Child-Page-Container">
+            <Navbar />
             {
                 this.state.pageStatus === PageStatus.ChildList && loggedUser !== null && 
                     <div className="Page-Content">
+                        <div className="Avatar-Container">
+                            <img className="Avatar-Container__Image" src={loggedUser.avatar !== "" ? loggedUser.avatar : "/img/avatar.jpg"} alt="avatar"/>
+                            <form onSubmit={this.submitAvatarData}>
+                                <input type="file" onChange={this.changeAvatar} required />
+                                <input type="submit" value="Submit" />
+                            </form>
+                            
+                        </div>
+                        
                         <div className="Add-Child-Interface">
-                            <h2 className="Add-Child-Interface__Title">Children</h2>
                             <section className="Add-Child-Interface__Child-List">
                             {
                                 (loggedUser && userChildren.length !== 0) 
@@ -165,7 +213,7 @@ class UserPage extends React.PureComponent<IProps, IState> {
                             } 
                             </section>
                             <div className="Add-Child-Interface__Button-Container">
-                                <button onClick={this.turnOnAddChildInterface}>Add Child</button>
+                                <button onClick={this.turnOnAddChildInterface}>+</button>
                             </div>
                         </div>
                     </div>

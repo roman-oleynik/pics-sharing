@@ -10,7 +10,13 @@ interface IProps {
 };
 
 const Navbar = (props: IProps) => {
-    return <header className="Header-Container">
+    const logInStyle = {
+        background: "lightgray"
+    };
+    const logOutStyle = {
+        background: "rgba(0,0,0,0.1)"
+    };
+    return <header className="Header-Container" style={props.loggedUser !== null ? logInStyle : logOutStyle}>
         <NavLink to="/" className="Logo">
                 <img src="/img/logo.png" className="Logo__Image" alt="Logo" />
                 <span className="Logo__Title">childbunch</span>

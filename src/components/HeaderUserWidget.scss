@@ -9,6 +9,8 @@ $borderRadiusCircle: 50%;
 .Logged-User-Widget {
     display: flex;
     align-items: center;
+    padding-right: 100px;
+    position: relative;
 
     .Logged-User-Widget__Avatar {
         margin: $marginMin;
@@ -30,5 +32,15 @@ $borderRadiusCircle: 50%;
         background: transparent;
         border: 0;
         margin: 5px;
+    }
+    .Logged-User-Widget__Dropdown-Button {
+        background: transparent;
+        border: 0;
+    }
+    .Logged-User-Widget__Dropdown {
+        position: absolute;
+        bottom: -50px;
+        width: 120px;
+        background: #ccc;
     }
 }

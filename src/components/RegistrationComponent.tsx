@@ -5,6 +5,7 @@ import {UserObject} from '../types/types';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { Redirect } from 'react-router';
 import MainPage from './MainPage';
+import {NavLink} from 'react-router-dom';
 
 interface IProps {
     dispatch: any
@@ -45,9 +46,11 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
             .catch((err: AxiosError) => console.log(err));
     };
 
-    public validatePasswordOfUserObject = (UserObject: UserObject): void => {
-        if (UserObject.password.length > 6) {
+    public validatePasswordOfUserObject = (UserObject: UserObject, confirmPassword: string): void => {
+        if (UserObject.password.length > 6 && confirmPassword === UserObject.password) {
             this.submitFormData(UserObject);
+        } else if (confirmPassword !== UserObject.password) {
+            alert("You haven't confirmed your password")
         } else {
             alert('Your password must contain more than 6 symbols!');
         }
@@ -55,15 +58,16 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
 
     public processFormData = (EO: FormEvent): void => {
         EO.preventDefault();
-        const {_email, _password, _firstName, _lastName}: any = this.refs; 
+        const {_email, _password, _confirmPassword, _firstName, _lastName}: any = this.refs; 
         const UserObject: UserObject = {
             id: generateId(),
             email: _email.value,
             password: _password.value,
             firstName: _firstName.value,
-            lastName: _lastName.value
+            lastName: _lastName.value,
+            avatar: ""
         }
-        this.validatePasswordOfUserObject(UserObject);
+        this.validatePasswordOfUserObject(UserObject, _confirmPassword.value);
     };
 
     public closeForm = (): void => {
@@ -85,26 +89,35 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                 <h1 className="Registration-Component-Container__Title">Registration</h1>
                 <form className="Registration-Component-Form" onSubmit={this.processFormData}>
                     <div className="Registration-Input-Container">
-                        <label className="Registration-Input-Container__Label">Email: <br />
-                            <input ref="_email" type="email" placeholder="E-mail" required />
+                        <label className="Registration-Input-Container__Label">E-mail : <br />
+                            <input className="Registration-Input-Container__Input" ref="_email" type="email" placeholder="E-mail" required />
                         </label>
-                        <label className="Registration-Input-Container__Label">Password: <br />
-                            <input ref="_password" type="password" placeholder="More than 6 symbols" required />
+                        <label className="Registration-Input-Container__Label">Password : <br />
+                            <input className="Registration-Input-Container__Input" ref="_password" type="password" placeholder="More than 6 symbols" required />
                         </label>
-                        <label className="Registration-Input-Container__Label">Firstname: <br />
-                            <input ref="_firstName" type="text" required />
+                        <label className="Registration-Input-Container__Label">Confirm Password : <br />
+                            <input className="Registration-Input-Container__Input" ref="_confirmPassword" type="password" required />
                         </label>
-                        <label className="Registration-Input-Container__Label">Lastname: <br />
-                            <input ref="_lastName" type="text" required />
+                        <label className="Registration-Input-Container__Label">Firstname : <br />
+                            <input className="Registration-Input-Container__Input" ref="_firstName" type="text" required />
+                        </label>
+                        <label className="Registration-Input-Container__Label">Lastname : <br />
+                            <input className="Registration-Input-Container__Input" ref="_lastName" type="text" required />
                         </label>
                     </div>
 
-                    <div className="Login-Buttons-Container">
+                    <div className="Registration-Buttons-Container">
                         <input type="submit" value="Submit" className='Registration-Component-Form__Submit' />
                         <input type="button" value="Cancel" className='Registration-Component-Form__Cancel' onClick={this.closeForm} />
                     </div>
                     
                 </form>
+                <hr/>
+                <br/>
+                <span className="Registration-Component-Container__Login-Row">
+                    Do you have an account?  
+                    <NavLink to="/login" className="Registration-Component-Container__Login-Link">Log In</NavLink>
+                </span>
             </div>
         </React.Fragment>
     };

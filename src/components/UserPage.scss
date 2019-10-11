@@ -1,6 +1,9 @@
 $fullScreenHeight: 100vh;
 $fullScreenWidth: 100%;
 
+$violet: #a054c6;
+
+
 .Child-Page-Container {
     display: flex;
     flex-direction: column;
@@ -16,6 +19,33 @@ $fullScreenWidth: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
+
+            .Add-Child-Interface__Button-Container {
+                button {
+                    height: 80px;
+                    width: 80px;
+                    border-radius: 50%;
+                    position: fixed;
+                    bottom: 70px;
+                    right: 70px;
+                    border: 0;
+                    background: cornflowerblue;
+                    font-size: 60px;
+                    color: #fff;
+                    transition: 0.5s;
+                }
+                button:hover {
+                    background: $violet;
+                    transition: 0.5s;
+                }
+                
+            }
+        }
+    }
+
+    .Avatar-Container {
+        .Avatar-Container__Image {
+            width: 200px;
         }
     }
 }
