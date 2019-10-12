@@ -1,7 +1,7 @@
 import React from 'react';
 import './ChildLink.scss';
-import {ACT_GET_USER_DATA, ACT_GET_CHILDREN_DATA} from '../actions/actions';
-import {Store, UserObject, Child, ChildPhoto} from '../types/types';
+import {ACT_EDIT_SERVER_CONNECTION_STATUS, ACT_GET_CHILDREN_DATA} from '../actions/actions';
+import {Store, UserObject, Child, ChildPhoto, ServerConnectionStatus} from '../types/types';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
@@ -32,10 +32,12 @@ class ChildItem extends React.PureComponent<IProps> {
                 this.props.userChildren && this.props.userChildren.forEach((child: Child) => {
                     child.id !== this.props.childInfo.id && updChildrenList.push(child);
                 });
-
                 this.props.dispatch(ACT_GET_CHILDREN_DATA(updChildrenList));
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+                ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+            });
     };
 
     public turnOnEditMode = () => {

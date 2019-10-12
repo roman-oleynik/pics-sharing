@@ -2,8 +2,8 @@ import React, {FormEvent} from 'react';
 import {Redirect} from 'react-router-dom';
 import './LoginComponent.scss';
 import {generateId} from '../modules/generateId';
-import {UserObject, Store} from '../types/types';
-import {ACT_AUTHORIZE_USER} from '../actions/actions';
+import {UserObject, Store, ServerConnectionStatus} from '../types/types';
+import {ACT_AUTHORIZE_USER, ACT_EDIT_SERVER_CONNECTION_STATUS} from '../actions/actions';
 import {NavLink} from 'react-router-dom';
 import axios from 'axios';
 import {connect} from 'react-redux';
@@ -46,7 +46,10 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                     this.props.dispatch(ACT_AUTHORIZE_USER(loggedUser));
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err);
+                ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+            })
     };
 
     private validatePasswordOfUserObject = (UserObject: UserObject): void => {

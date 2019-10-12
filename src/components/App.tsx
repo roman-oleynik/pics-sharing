@@ -6,8 +6,8 @@ import store from '../store/store';
 import {connect} from 'react-redux';
 import {Store, InternetConnectionStatus, ServerConnectionStatus} from '../types/types';
 import axios, { AxiosResponse, AxiosError } from 'axios';
-import {ACT_CONNECT_APP_TO_THE_INTERNET} from '../actions/actions';
-import {ACT_CONNECT_APP_TO_THE_SERVER} from '../actions/actions';
+import {ACT_EDIT_INTERNET_CONNECTION_STATUS} from '../actions/actions';
+import {ACT_EDIT_SERVER_CONNECTION_STATUS} from '../actions/actions';
 
 
 import Navbar from './Navbar';
@@ -28,18 +28,18 @@ class App extends React.PureComponent<IProps> {
 
   public componentWillMount = () => {
     if (navigator.onLine) {
-      this.props.dispatch(ACT_CONNECT_APP_TO_THE_INTERNET(InternetConnectionStatus.Connected));
+      this.props.dispatch(ACT_EDIT_INTERNET_CONNECTION_STATUS(InternetConnectionStatus.Connected));
     } else {
-      this.props.dispatch(ACT_CONNECT_APP_TO_THE_INTERNET(InternetConnectionStatus.Disconnected));
+      this.props.dispatch(ACT_EDIT_INTERNET_CONNECTION_STATUS(InternetConnectionStatus.Disconnected));
     }
     axios.get('http://localhost:4000/users')
       .then((res: AxiosResponse): void => {
         console.log(res);
-        this.props.dispatch(ACT_CONNECT_APP_TO_THE_SERVER(ServerConnectionStatus.Connected))
+        this.props.dispatch(ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Connected))
       })
       .catch((err: AxiosError): void => {
         console.log(err);
-        this.props.dispatch(ACT_CONNECT_APP_TO_THE_SERVER(ServerConnectionStatus.Disconnected))
+        this.props.dispatch(ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected))
       })
   };
 

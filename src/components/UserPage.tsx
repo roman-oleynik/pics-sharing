@@ -1,31 +1,32 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import './UserPage.scss';
 import {Store, UserObject, Child, ChildPhoto} from '../types/types';
-import {ACT_GET_USER_DATA, ACT_EDIT_CHILD_DATA, ACT_GET_CHILDREN_DATA, ACT_ADD_CHILD, ACT_GET_PHOTOS_DATA} from '../actions/actions';
+import {ACT_GET_USER_DATA, ACT_EDIT_SERVER_CONNECTION_STATUS, ACT_EDIT_CHILD_DATA, ACT_GET_CHILDREN_DATA, ACT_ADD_CHILD, ACT_GET_PHOTOS_DATA} from '../actions/actions';
 import {generateId} from '../modules/generateId';
-import {Redirect, NavLink} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import ChildLink from './ChildLink';
 import {storage} from '../firebase/firebaseConfig';
 import Navbar from './Navbar';
-
+import {ServerConnectionStatus} from '../types/types';
 
 interface IProps {
     loggedUser: UserObject,
     userChildren: Child[],
     userPhotos: ChildPhoto[],
     match: any,
-    dispatch: any
+    dispatch: any,
+    hasServerConnection: ServerConnectionStatus
 };
 
 interface IState {
-    pageStatus: PageStatus,
+    pageMode: PageMode,
     childOnEditing: Child,
     userAvatar: any
 }
 
-enum PageStatus {
+enum PageMode {
     ChildList,
     AddChild,
     EditChild
@@ -33,7 +34,7 @@ enum PageStatus {
 
 class UserPage extends React.PureComponent<IProps, IState> {
     public state: IState = {
-        pageStatus: PageStatus.ChildList,
+        pageMode: PageMode.ChildList,
         childOnEditing: {
             id: "",
             name: "",
@@ -56,17 +57,21 @@ class UserPage extends React.PureComponent<IProps, IState> {
             .then((res: AxiosResponse) => {
                 this.props.dispatch(ACT_GET_USER_DATA(res.data))
             })
-            .catch((err: AxiosError) => console.log(err))
+            .catch((err: AxiosError) => {
+                console.log(err);
+                ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+            })
     };
 
     public getChildren = (id: string): void => {
         axios.get(`http://localhost:4000/users/${id}/childItems`)
             .then((res: AxiosResponse) => {
-                // console.log(res.data)
-                
                 this.props.dispatch(ACT_GET_CHILDREN_DATA(res.data))
             })
-            .catch((err: AxiosError) => console.log(err))
+            .catch((err: AxiosError) => {
+                console.log(err);
+                ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+            })
     };
 
     public getPhotos = (id: string): void => {
@@ -74,7 +79,10 @@ class UserPage extends React.PureComponent<IProps, IState> {
             .then((res: AxiosResponse) => {
                 this.props.dispatch(ACT_GET_PHOTOS_DATA(res.data))
             })
-            .catch((err: AxiosError) => console.log(err))
+            .catch((err: AxiosError) => {
+                console.log(err);
+                ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+            })
     };
 
     public processFormData = (): void => {
@@ -92,34 +100,39 @@ class UserPage extends React.PureComponent<IProps, IState> {
 
     public submitData = (data: Child): void => {
         axios.post(`http://localhost:4000/childItems`, data)
-            .then(res => {
+            .then((res: AxiosResponse) => {
                 this.props.dispatch(ACT_ADD_CHILD(res.data));
-                this.setState({pageStatus: PageStatus.ChildList});
+                this.setState({pageMode: PageMode.ChildList});
             })
-            .catch(err => console.log(err))
+            .catch((err: AxiosError) => {
+                console.log(err);
+                ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+            })
     };
 
     public submitEditedChildData = (): void => {
         axios.put(`http://localhost:4000/childItems/${this.state.childOnEditing.id}`, this.state.childOnEditing)
-            .then(res => {
-                console.log(res.data);
+            .then((res: AxiosResponse) => {
                 this.props.dispatch(ACT_EDIT_CHILD_DATA(res.data));
-                this.setState({pageStatus: PageStatus.ChildList});
+                this.setState({pageMode: PageMode.ChildList});
             })
-            .catch(err => console.log(err))
+            .catch((err: AxiosError) => {
+                console.log(err);
+                ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+            })
     };
 
     public goBackToUserPage = (): void => {
-        this.setState({pageStatus: PageStatus.ChildList});
+        this.setState({pageMode: PageMode.ChildList});
     };
 
     public turnOnAddChildInterface = () => {
-        this.setState({pageStatus: PageStatus.AddChild});
+        this.setState({pageMode: PageMode.AddChild});
     };
 
     public turnOnEditChildInterface = (child: Child) => {
         this.setState({
-            pageStatus: PageStatus.EditChild,
+            pageMode: PageMode.EditChild,
             childOnEditing: child
         });
 
@@ -153,7 +166,7 @@ class UserPage extends React.PureComponent<IProps, IState> {
             
         }, 
         (err) => {
-                //err
+            this.props.dispatch(ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected))
         }, 
         () => {
             storage.ref('images').child(this.state.userAvatar.name).getDownloadURL()
@@ -169,7 +182,10 @@ class UserPage extends React.PureComponent<IProps, IState> {
                 
 
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+            });
         });
     };
 
@@ -178,10 +194,13 @@ class UserPage extends React.PureComponent<IProps, IState> {
         if (loggedUser === null) {
             return <Redirect to="/login" />
         }
+        if (this.props.hasServerConnection === ServerConnectionStatus.Disconnected) {
+            return <div>Disconnected</div>
+        }
         return loggedUser ? <section className="Child-Page-Container">
             <Navbar />
             {
-                this.state.pageStatus === PageStatus.ChildList && loggedUser !== null && 
+                this.state.pageMode === PageMode.ChildList && loggedUser !== null && 
                     <div className="Page-Content">
                         <div className="Avatar-Container">
                             <img className="Avatar-Container__Image" src={loggedUser.avatar !== "" ? loggedUser.avatar : "/img/avatar.jpg"} alt="avatar"/>
@@ -219,7 +238,7 @@ class UserPage extends React.PureComponent<IProps, IState> {
                     </div>
             }
             {
-                this.state.pageStatus === PageStatus.AddChild && loggedUser !== null && 
+                this.state.pageMode === PageMode.AddChild && loggedUser !== null && 
                 <div>
                     <h1 className="Page-Content__Username">Add Child</h1>
                     <input type="text" ref="_name" required />
@@ -230,7 +249,7 @@ class UserPage extends React.PureComponent<IProps, IState> {
                 </div> 
             }
             {
-                this.state.pageStatus === PageStatus.EditChild && loggedUser !== null && 
+                this.state.pageMode === PageMode.EditChild && loggedUser !== null && 
                 <div>
                     <h1 className="Page-Content__Username">Edit Child</h1>
                     <input type="text" defaultValue={this.state.childOnEditing.name} onChange={this.changeDataOfChildOnEditing} ref="_name" required />
@@ -247,6 +266,7 @@ class UserPage extends React.PureComponent<IProps, IState> {
 
 let mapStateToProps = (state: Store) => {
     return {
+        hasServerConnection: state.hasServerConnection,
         loggedUser: state.loggedUser,
         userChildren: state.userChildren,
         userPhotos: state.userPhotos

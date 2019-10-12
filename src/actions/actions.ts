@@ -28,13 +28,13 @@ import {
     ServerConnectionStatus
 } from '../types/types';
 
-export function ACT_CONNECT_APP_TO_THE_INTERNET(status: InternetConnectionStatus): AOConnectAppToTheInternet {
+export function ACT_EDIT_INTERNET_CONNECTION_STATUS(status: InternetConnectionStatus): AOConnectAppToTheInternet {
     return {
         type: CONNECT_APP_TO_THE_INTERNET,
         status
     }
 }
-export function ACT_CONNECT_APP_TO_THE_SERVER(status: ServerConnectionStatus): AOConnectAppToTheServer {
+export function ACT_EDIT_SERVER_CONNECTION_STATUS(status: ServerConnectionStatus): AOConnectAppToTheServer {
     return {
         type: CONNECT_APP_TO_THE_SERVER,
         status

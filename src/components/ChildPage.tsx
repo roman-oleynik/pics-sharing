@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import './ChildPage.scss';
-import {Store, UserObject, Child, ChildPhoto} from '../types/types';
-import {ACT_GET_PHOTOS_DATA, ACT_ADD_CHILD_PHOTO} from '../actions/actions';
+import {Store, UserObject, Child, ChildPhoto, ServerConnectionStatus} from '../types/types';
+import {ACT_EDIT_SERVER_CONNECTION_STATUS, ACT_ADD_CHILD_PHOTO} from '../actions/actions';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router';
 import {generateId} from '../modules/generateId';
@@ -78,7 +78,10 @@ class ChildPage extends React.PureComponent<IProps, IState> {
           .then(url => {
             this.sendPhoto(url);
           })
-          .catch(err => console.log(err));
+          .catch(err => {
+            console.log(err);
+            ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+          });
     });
   };
 
@@ -95,7 +98,10 @@ class ChildPage extends React.PureComponent<IProps, IState> {
         console.log(res);
         this.props.dispatch(ACT_ADD_CHILD_PHOTO(res.data));
       })
-      .catch((err: AxiosError) => console.log(err));
+      .catch((err: AxiosError) => {
+        console.log(err);
+        ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+      });
   };
 
 

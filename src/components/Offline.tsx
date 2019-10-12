@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Offline = () => {
+const Offline: React.FC = () => {
     return <div>No Internet Connection</div>
 };
 

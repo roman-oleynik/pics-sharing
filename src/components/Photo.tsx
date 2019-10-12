@@ -1,9 +1,9 @@
 import React from 'react';
 import './Photo.scss';
-import {Child, UserObject, ChildPhoto, Store,} from '../types/types';
-import {ACT_DELETE_CHILD_PHOTO, ACT_GET_PHOTOS_DATA} from '../actions/actions';
+import {Child, UserObject, ChildPhoto, Store, ServerConnectionStatus} from '../types/types';
+import {ACT_DELETE_CHILD_PHOTO, ACT_EDIT_SERVER_CONNECTION_STATUS} from '../actions/actions';
 import {connect} from 'react-redux';
-import axios from 'axios';
+import axios, { AxiosAdapter, AxiosResponse, AxiosError } from 'axios';
 import { NavLink } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -36,11 +36,14 @@ class Photo extends React.PureComponent<IProps, IState> {
 
     public deletePhoto = (): void => {
         axios.delete(`http://localhost:4000/photos/${this.props.photoData.id}`)
-            .then((res) => {
+            .then((res: AxiosResponse) => {
                 console.log(res);
                 this.props.dispatch(ACT_DELETE_CHILD_PHOTO(this.props.photoData));
             })
-            .catch((err) => console.log(err));
+            .catch((err: AxiosError) => {
+                console.log(err);
+                ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+            });
     };
 
     public manageMouseOver = () => this.setState({delButtonColor: "red"});
