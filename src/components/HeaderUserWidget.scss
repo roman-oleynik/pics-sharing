@@ -1,5 +1,7 @@
 $fullWidth: 100%;
 $fullHeight: 100vh;
+$violet: #a054c6;
+
 
 $paddingMin: 5px;
 $marginMin: 5px;
@@ -12,17 +14,23 @@ $borderRadiusCircle: 50%;
     padding-right: 100px;
     position: relative;
 
-    .Logged-User-Widget__Avatar {
+    .Logged-User-Widget__Avatar-Container {
         margin: $marginMin;
         height: 30px;
         width: 30px;
         background: peachpuff;
+        border: 3px solid $violet;
         border-radius: $borderRadiusCircle;
         font-size: 20px;
         font-weight: bold;
         line-height: 30px;
         text-align: center;
         text-transform: uppercase;
+        overflow: hidden;
+
+        .Logged-User-Widget__Avatar {
+            width: 30px;
+        }
     }
     .Logged-User-Widget__Title {
         text-decoration: none;

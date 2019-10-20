@@ -8,6 +8,7 @@ import MainPage from './MainPage';
 import {NavLink} from 'react-router-dom';
 import {ACT_EDIT_SERVER_CONNECTION_STATUS} from '../actions/actions';
 
+
 interface IProps {
     dispatch: any
 };
@@ -22,34 +23,33 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
         isFormOpened: true
     };
 
-    public submitFormData = (UserObject: UserObject): void => {
+    public submitFormData = async (UserObject: UserObject) => {
         let data: UserObject[] = [];
-        axios.get('http://localhost:4000/users')
-            .then((res: AxiosResponse) => {
-                data = res.data
-                let isOriginal: boolean = true;
+        const getUsers = await axios.get('http://localhost:4000/users');
+        let isOriginal: boolean = true;
+            try {
+                data = getUsers.data;
                 data.forEach(el => {
                     if (el.email === UserObject.email) {
                         isOriginal = false;
                     }
                 });
                 if (isOriginal) {
-                    axios.post('http://localhost:4000/users', UserObject)
-                    .then((res: AxiosResponse) => {
-                        res && this.setState({isSuccessful: true})
-                    })
-                    .catch((err: AxiosError) => {
-                        console.log(err);
-                        ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-                    });
+                    const sendUser = await axios.post('http://localhost:4000/users', UserObject);
+                        try {
+                            sendUser && this.setState({isSuccessful: true});
+                        } catch(err) {
+                            console.log(err);
+                            ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+                        }
                 } else {
                     console.log('this email is already busy');
                 }
-            })
-            .catch((err: AxiosError) => {
+
+            } catch(err) {
                 console.log(err);
                 ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-            });
+            }
     };
 
     public validatePasswordOfUserObject = (UserObject: UserObject, confirmPassword: string): void => {
@@ -64,14 +64,15 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
 
     public processFormData = (EO: FormEvent): void => {
         EO.preventDefault();
-        const {_email, _password, _confirmPassword, _firstName, _lastName}: any = this.refs; 
+        const {_email, _password, _confirmPassword, _firstName, _lastName, _location}: any = this.refs; 
         const UserObject: UserObject = {
             id: generateId(),
             email: _email.value,
             password: _password.value,
             firstName: _firstName.value,
             lastName: _lastName.value,
-            avatar: ""
+            avatar: "",
+            location: _location.value
         }
         this.validatePasswordOfUserObject(UserObject, _confirmPassword.value);
     };
@@ -109,6 +110,9 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
                         </label>
                         <label className="Registration-Input-Container__Label">Lastname : <br />
                             <input className="Registration-Input-Container__Input" ref="_lastName" type="text" required />
+                        </label>
+                        <label className="Registration-Input-Container__Label">Location : <br />
+                            <input className="Registration-Input-Container__Input" ref="_location" type="text" required />
                         </label>
                     </div>
 

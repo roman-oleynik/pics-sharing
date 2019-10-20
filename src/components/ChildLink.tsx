@@ -4,7 +4,7 @@ import {ACT_EDIT_SERVER_CONNECTION_STATUS, ACT_GET_CHILDREN_DATA} from '../actio
 import {Store, UserObject, Child, ChildPhoto, ServerConnectionStatus} from '../types/types';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -25,19 +25,17 @@ class ChildItem extends React.PureComponent<IProps> {
         months: (+new Date() - +new Date(this.props.childInfo.dateOfBirth)) / 2592000000,
     };
 
-    public removeChild = (): void => {
-        axios.delete(`http://localhost:4000/childItems/${this.props.childInfo.id}`)
-            .then((res) => {
-                let updChildrenList: Child[] = [];
-                this.props.userChildren && this.props.userChildren.forEach((child: Child) => {
-                    child.id !== this.props.childInfo.id && updChildrenList.push(child);
+    public removeChild = async () => {
+        await axios.delete(`http://localhost:4000/childItems/${this.props.childInfo.id}`);
+            try {
+                let updChildrenList: Child[] = this.props.userChildren && this.props.userChildren.filter((child: Child) => {
+                    return child.id !== this.props.childInfo.id;
                 });
-                this.props.dispatch(ACT_GET_CHILDREN_DATA(updChildrenList));
-            })
-            .catch((err) => {
+                this.props.dispatch(ACT_GET_CHILDREN_DATA(updChildrenList)); // WRITE DELETE CHILDREN ACTION
+            } catch(err) {
                 console.log(err);
                 ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-            });
+            }
     };
 
     public turnOnEditMode = () => {

@@ -8,6 +8,7 @@ import {NavLink} from 'react-router-dom';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import MainPage from './MainPage';
+import { any } from 'prop-types';
 
 interface IProps {
     dispatch: any,
@@ -36,20 +37,19 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
         return foundUser;
     };
 
-    private submitFormData = (UserObject: UserObject): void => {
-        axios.get('http://localhost:4000/users')
-            .then(res => {
-                const users = res.data;
+    private submitFormData = async (UserObject: UserObject) => {
+        const getUsers = await axios.get('http://localhost:4000/users');
+            try {
+                const users = getUsers.data;
                 const loggedUser = this.findUserInTheServer(users, UserObject);
 
                 if (loggedUser) {
                     this.props.dispatch(ACT_AUTHORIZE_USER(loggedUser));
                 }
-            })
-            .catch(err => {
+            } catch(err) {
                 console.log(err);
                 ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-            })
+            }
     };
 
     private validatePasswordOfUserObject = (UserObject: UserObject): void => {
@@ -71,7 +71,8 @@ class LoginComponent extends React.PureComponent<IProps, IState> {
             password: _password.value,
             firstName: "",
             lastName: "",
-            avatar: ""
+            avatar: "",
+            location: ""
         };
         this.validatePasswordOfUserObject(UserObject);
     };

@@ -3,8 +3,8 @@ import { serverConnectionReducer } from '../serverConnectionReducer';
 import { loggedUserReducer } from '../loggedUserReducer';
 import { userChildrenReducer } from '../userChildrenReducer';
 import { userPhotosReducer } from '../userPhotosReducer';
-import { CONNECT_APP_TO_THE_INTERNET, InternetConnectionStatus } from '../../types/types';
-import { CONNECT_APP_TO_THE_SERVER, ServerConnectionStatus } from '../../types/types';
+import { EDIT_INTERNET_CONNECTION_STATUS, InternetConnectionStatus } from '../../types/types';
+import { EDIT_SERVER_CONNECTION_STATUS, ServerConnectionStatus } from '../../types/types';
 import {GET_USER_DATA, DELETE_CHILD_PHOTO, GET_PHOTOS_DATA, ADD_CHILD_PHOTO, AUTHORIZE_USER, LOG_OUT, ADD_CHILD, EDIT_CHILD_DATA, GET_CHILDREN_DATA} from '../../types/types';
 import { generateId } from '../../modules/generateId';
 
@@ -13,7 +13,7 @@ describe("tests of internetConnectionReducer", () => {
 
   it('test of internetConnectionReducer', () => {
     const AO = {
-      type: CONNECT_APP_TO_THE_INTERNET, 
+      type: EDIT_INTERNET_CONNECTION_STATUS, 
       status: InternetConnectionStatus.Connected
     };
     expect(internetConnectionReducer(InternetConnectionStatus.Connection, AO))
@@ -26,7 +26,7 @@ describe("tests of serverConnectionReducer", () => {
 
   it('test of serverConnectionReducer', () => {
     const AO = {
-      type: CONNECT_APP_TO_THE_SERVER,
+      type: EDIT_SERVER_CONNECTION_STATUS,
       status: ServerConnectionStatus.Connected
     };
     expect(serverConnectionReducer(ServerConnectionStatus.Connection, AO))
@@ -45,7 +45,8 @@ describe("tests of loggedUserReducer", () => {
         email: "somemail@gmail.com",
         password: "12345678",
         firstName: "John",
-        lastName: "Doe"
+        lastName: "Doe",
+        location: "Minsk"
       }
     };
     expect(loggedUserReducer(null, AO))
@@ -58,7 +59,8 @@ describe("tests of loggedUserReducer", () => {
       email: "somemail@gmail.com",
       password: "12345678",
       firstName: "John",
-      lastName: "Doe"
+      lastName: "Doe",
+      location: "Minsk"
     };
     const AO = {type: LOG_OUT};
 
@@ -72,7 +74,8 @@ describe("tests of loggedUserReducer", () => {
       email: "somemail@gmail.com",
       password: "12345678",
       firstName: "John",
-      lastName: "Doe"
+      lastName: "Doe",
+      location: "Minsk"
     };
     const AO = {
       type: GET_USER_DATA,
@@ -92,14 +95,12 @@ describe('tests of userChildrenReducer', () => {
         id: generateId(),
         name: "Mike",
         dateOfBirth: new Date(),
-        placeOfBirth: "NY",
         userId: "111111111111111111111111"
       },
       {
         id: generateId(),
         name: "John",
         dateOfBirth: new Date(),
-        placeOfBirth: "NY",
         userId: "111111111111111111111111"
       }
     ]
@@ -107,7 +108,6 @@ describe('tests of userChildrenReducer', () => {
       id: generateId(),
       name: "John",
       dateOfBirth: new Date(),
-      placeOfBirth: "NY",
       userId: "111111111111111111111111"
     };
     const AO = {
@@ -124,14 +124,12 @@ describe('tests of userChildrenReducer', () => {
         id: '222222222222222222222222',
         name: "Mike",
         dateOfBirth: new Date(),
-        placeOfBirth: "NY",
         userId: "111111111111111111111111"
       },
       {
         id: '333333333333333333333333',
         name: "John",
         dateOfBirth: new Date(),
-        placeOfBirth: "NY",
         userId: "111111111111111111111111"
       }
     ];
@@ -139,7 +137,6 @@ describe('tests of userChildrenReducer', () => {
       id: '333333333333333333333333',
       name: "John",
       dateOfBirth: new Date(),
-      placeOfBirth: "NY",
       userId: "111111111111111111111111"
     };
     const AO = {
@@ -159,14 +156,12 @@ describe('tests of userChildrenReducer', () => {
         id: '222222222222222222222222',
         name: "Mike",
         dateOfBirth: new Date(),
-        placeOfBirth: "NY",
         userId: "111111111111111111111111"
       },
       {
         id: '333333333333333333333333',
         name: "John",
         dateOfBirth: new Date(),
-        placeOfBirth: "NY",
         userId: "111111111111111111111111"
       }
     ];
@@ -184,14 +179,12 @@ describe('tests of userChildrenReducer', () => {
         id: '222222222222222222222222',
         name: "Mike",
         dateOfBirth: new Date(),
-        placeOfBirth: "NY",
         userId: "111111111111111111111111"
       },
       {
         id: '333333333333333333333333',
         name: "John",
         dateOfBirth: new Date(),
-        placeOfBirth: "NY",
         userId: "111111111111111111111111"
       }
     ];

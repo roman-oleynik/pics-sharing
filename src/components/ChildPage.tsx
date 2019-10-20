@@ -9,6 +9,7 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 import {storage} from '../firebase/firebaseConfig';
 import Photo from './Photo';
 import { NavLink } from 'react-router-dom';
+import Navbar from './Navbar';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
@@ -22,20 +23,19 @@ interface IProps {
 };
 
 interface IState {
-  loadPhotoStatus: PhotoStatus,
+  loadPhotoStatus: PhotoLoadingStatus,
 };
 
-enum PhotoStatus {
+enum PhotoLoadingStatus {
   Loading,
-  Loaded
+  Loaded,
+  Unloaded
 }
 
 class ChildPage extends React.PureComponent<IProps, IState> {
   public state = {
-    loadPhotoStatus: PhotoStatus.Loaded,
+    loadPhotoStatus: PhotoLoadingStatus.Loaded,
   };
-
-  
 
   public currentChild: Child | false | undefined;
 
@@ -59,33 +59,32 @@ class ChildPage extends React.PureComponent<IProps, IState> {
     this._dateOfTakingPicture = new Date(EO.target.value).toISOString()
   };  
    
-  public uploadFile = (EO: FormEvent) => {
+  public uploadFile = async (EO: FormEvent) => {
     EO.preventDefault();
     let uploadedFiles: any = this.refs.files;
     let image = uploadedFiles.files[0];
-    const upload = storage.ref(`images/${image.name}`).put(image);
+    const upload: any = await storage.ref(`images/${image.name}`).put(image);
 
     upload.on("state_changed", 
-      (snapshot) => {
-        this.setState({loadPhotoStatus: PhotoStatus.Loading})
-        snapshot.bytesTransferred === snapshot.totalBytes && this.setState({loadPhotoStatus: PhotoStatus.Loaded})
+      (snapshot: any) => {
+        this.setState({loadPhotoStatus: PhotoLoadingStatus.Loading});
+        snapshot.bytesTransferred === snapshot.totalBytes && this.setState({loadPhotoStatus: PhotoLoadingStatus.Loaded});
       }, 
-      (err) => {
-            //err
+      (err: any) => {
+            console.log(err);
       }, 
-      () => {
-        storage.ref('images').child(image.name).getDownloadURL()
-          .then(url => {
+      async () => {
+        const url = await storage.ref('images').child(image.name).getDownloadURL();
+          try {
             this.sendPhoto(url);
-          })
-          .catch(err => {
+          } catch(err) {
             console.log(err);
             ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-          });
+          }
     });
   };
 
-  public sendPhoto = (picture: string) => {
+  public sendPhoto = async (picture: string) => {
     let newPhoto = {
       id: generateId(),
       src: picture,
@@ -93,15 +92,13 @@ class ChildPage extends React.PureComponent<IProps, IState> {
       childItemId: this.currentChild && this.currentChild.id
     };
 
-    axios.post(`http://localhost:4000/photos`, newPhoto)
-      .then((res: AxiosResponse) => {
-        console.log(res);
-        this.props.dispatch(ACT_ADD_CHILD_PHOTO(res.data));
-      })
-      .catch((err: AxiosError) => {
+    const sendPhoto = await axios.post(`http://localhost:4000/photos`, newPhoto);
+      try {
+          this.props.dispatch(ACT_ADD_CHILD_PHOTO(sendPhoto.data));
+      } catch(err) {
         console.log(err);
         ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-      });
+      }
   };
 
 
@@ -120,6 +117,7 @@ class ChildPage extends React.PureComponent<IProps, IState> {
     }
     
     return <div className="Child-Page-Container"> 
+              <Navbar />
               <NavLink to={`/in/${this.props.loggedUser.id}/children`} className="Child-Page-Container__Back">
                 <FontAwesomeIcon icon={faLongArrowAltLeft} size="2x" />
               </NavLink>
@@ -129,11 +127,11 @@ class ChildPage extends React.PureComponent<IProps, IState> {
                 <div className="Child-Page-Container__Photos">
                   <div className="Load-Image-Interface">
                       {
-                        this.state.loadPhotoStatus === PhotoStatus.Loading
+                        this.state.loadPhotoStatus === PhotoLoadingStatus.Loading
                         ? 
                         <img src="/img/loader.gif" alt="loader"/>
                         :
-                        this.state.loadPhotoStatus === PhotoStatus.Loaded
+                        this.state.loadPhotoStatus === PhotoLoadingStatus.Loaded
                         ?  
                         <form onSubmit={this.uploadFile}>
                           <label htmlFor="file" className="Load-Image-Interface__Label">+

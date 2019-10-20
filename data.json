@@ -6,30 +6,44 @@
       "password": "123qwe1",
       "firstName": "Roman",
       "lastName": "Oleynik",
-      "avatar": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2Fcaterpillar%20and%20dud.jpg?alt=media&token=dbcc3a1a-784c-48e8-b52f-eefcbbe6273b"
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FqNusijUQzpk.jpg?alt=media&token=8316f9fd-c4dd-40de-adbb-14350bfba73f"
+    },
+    {
+      "id": "41cc93nwvq4nceizvi0mr9r5",
+      "email": "raman.alejnik@gmail.com",
+      "password": "123123123",
+      "firstName": "Роман",
+      "lastName": "Олейник",
+      "avatar": "",
+      "location": "df"
     }
   ],
   "childItems": [
     {
-      "id": "h73v8v721epeviv4zzhdamxh",
-      "name": "Roman",
-      "dateOfBirth": "1996-01-31",
-      "placeOfBirth": "Minsk",
+      "id": "lwymnn294ly6sqsw0bh4mtnh",
+      "name": "Clever son",
+      "dateOfBirth": "1999-01-31",
+      "userId": "r57rxn28kzonl0ihokgrwfw4"
+    },
+    {
+      "id": "02xckq2fxuu3g6gwv3rkbwez",
+      "name": "\"So and so\" sonny",
+      "dateOfBirth": "2001-12-21",
+      "userId": "r57rxn28kzonl0ihokgrwfw4"
+    },
+    {
+      "id": "8xfxses28b7ukrg4kzgd4yvr",
+      "name": "Foolish son",
+      "dateOfBirth": "2006-01-30T00:00:00.000Z",
       "userId": "r57rxn28kzonl0ihokgrwfw4"
     }
   ],
   "photos": [
     {
-      "id": "o0jo1if9h1fg63xcadcrrdnh",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-162656.jpg?alt=media&token=479e2ab6-86ff-49c7-abae-25fd13838276",
-      "createdAt": "2019-10-10T16:46:29.493Z",
-      "childItemId": "h73v8v721epeviv4zzhdamxh"
-    },
-    {
-      "id": "es69u6nns0swdddx824ia650",
-      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-163229.jpg?alt=media&token=23de3636-eccf-4254-b3e5-ed78c3b237a3",
-      "createdAt": "2019-10-11T00:00:00.000Z",
-      "childItemId": "h73v8v721epeviv4zzhdamxh"
+      "id": "nurx8dr81nmou1echwnzoxab",
+      "src": "https://firebasestorage.googleapis.com/v0/b/pics-sharing-943a2.appspot.com/o/images%2FP71022-115916.jpg?alt=media&token=da6fead1-220a-428e-9e0e-9ceb620e0bb8",
+      "createdAt": "2019-10-15T17:57:16.214Z",
+      "childItemId": "lwymnn294ly6sqsw0bh4mtnh"
     }
   ]
 }

@@ -21,8 +21,8 @@ import {
     EDIT_CHILD_DATA,
     GET_PHOTOS_DATA,
     DELETE_CHILD_PHOTO,
-    CONNECT_APP_TO_THE_INTERNET,
-    CONNECT_APP_TO_THE_SERVER,
+    EDIT_INTERNET_CONNECTION_STATUS,
+    EDIT_SERVER_CONNECTION_STATUS,
     ChildPhoto,
     InternetConnectionStatus, 
     ServerConnectionStatus
@@ -30,13 +30,13 @@ import {
 
 export function ACT_EDIT_INTERNET_CONNECTION_STATUS(status: InternetConnectionStatus): AOConnectAppToTheInternet {
     return {
-        type: CONNECT_APP_TO_THE_INTERNET,
+        type: EDIT_INTERNET_CONNECTION_STATUS,
         status
     }
 }
 export function ACT_EDIT_SERVER_CONNECTION_STATUS(status: ServerConnectionStatus): AOConnectAppToTheServer {
     return {
-        type: CONNECT_APP_TO_THE_SERVER,
+        type: EDIT_SERVER_CONNECTION_STATUS,
         status
     }
 }

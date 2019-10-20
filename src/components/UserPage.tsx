@@ -10,6 +10,8 @@ import ChildLink from './ChildLink';
 import {storage} from '../firebase/firebaseConfig';
 import Navbar from './Navbar';
 import {ServerConnectionStatus} from '../types/types';
+import isoFetch from 'isomorphic-fetch';
+
 
 interface IProps {
     loggedUser: UserObject,
@@ -23,14 +25,21 @@ interface IProps {
 interface IState {
     pageMode: PageMode,
     childOnEditing: Child,
-    userAvatar: any
-}
+    userAvatar: any,
+    avatarLoadingStatus: PhotoLoadingStatus
+};
 
 enum PageMode {
     ChildList,
     AddChild,
     EditChild
-}
+};
+enum PhotoLoadingStatus {
+    Loading,
+    Loaded,
+    Unloaded
+};
+  
 
 class UserPage extends React.PureComponent<IProps, IState> {
     public state: IState = {
@@ -39,50 +48,46 @@ class UserPage extends React.PureComponent<IProps, IState> {
             id: "",
             name: "",
             dateOfBirth: new Date(),
-            placeOfBirth: "",
             userId: ""
         },
-        userAvatar: {}
+        userAvatar: {},
+        avatarLoadingStatus: PhotoLoadingStatus.Loaded
     };
 
     public componentWillMount = (): void => {
-        // console.log(this.props.loggedUser);
         this.getUser(this.props.match.params.id);
         this.getChildren(this.props.match.params.id);
         this.getPhotos(this.props.match.params.id);
     };
 
-    public getUser = (id: string): void => {
-        axios.get(`http://localhost:4000/users/${id}`)
-            .then((res: AxiosResponse) => {
-                this.props.dispatch(ACT_GET_USER_DATA(res.data))
-            })
-            .catch((err: AxiosError) => {
+    public getUser = async (id: string) => {
+        const getUser = await axios.get(`http://localhost:4000/users/${id}`);
+            try {
+                this.props.dispatch(ACT_GET_USER_DATA(getUser.data));
+            } catch(err) {
                 console.log(err);
                 ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-            })
+            }
     };
 
-    public getChildren = (id: string): void => {
-        axios.get(`http://localhost:4000/users/${id}/childItems`)
-            .then((res: AxiosResponse) => {
-                this.props.dispatch(ACT_GET_CHILDREN_DATA(res.data))
-            })
-            .catch((err: AxiosError) => {
+    public getChildren = async (id: string) => {
+        const getChildren = await axios.get(`http://localhost:4000/users/${id}/childItems`);
+            try {
+                this.props.dispatch(ACT_GET_CHILDREN_DATA(getChildren.data));
+            } catch (err) {
                 console.log(err);
                 ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-            })
+            }
     };
 
-    public getPhotos = (id: string): void => {
-        axios.get(`http://localhost:4000/users/${id}/photos`)
-            .then((res: AxiosResponse) => {
-                this.props.dispatch(ACT_GET_PHOTOS_DATA(res.data))
-            })
-            .catch((err: AxiosError) => {
+    public getPhotos = async (id: string) => {
+        const getPhotos = await axios.get(`http://localhost:4000/users/${id}/photos`);
+            try {
+                this.props.dispatch(ACT_GET_PHOTOS_DATA(getPhotos.data))
+            } catch(err) {
                 console.log(err);
                 ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-            })
+            }
     };
 
     public processFormData = (): void => {
@@ -92,34 +97,30 @@ class UserPage extends React.PureComponent<IProps, IState> {
             id: generateId(),
             name: _name.value,
             dateOfBirth: new Date(_dateOfBirth.value),
-            placeOfBirth: _placeOfBirth.value,
             userId: this.props.loggedUser.id
         };
         this.submitData(newChildData);
     };
 
-    public submitData = (data: Child): void => {
-        axios.post(`http://localhost:4000/childItems`, data)
-            .then((res: AxiosResponse) => {
-                this.props.dispatch(ACT_ADD_CHILD(res.data));
+    public submitData = async (data: Child) => {
+        const result = await axios.post(`http://localhost:4000/childItems`, data);
+            try {
+                this.props.dispatch(ACT_ADD_CHILD(result.data));
                 this.setState({pageMode: PageMode.ChildList});
-            })
-            .catch((err: AxiosError) => {
-                console.log(err);
+            } catch {
                 ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-            })
+            }
     };
 
-    public submitEditedChildData = (): void => {
-        axios.put(`http://localhost:4000/childItems/${this.state.childOnEditing.id}`, this.state.childOnEditing)
-            .then((res: AxiosResponse) => {
-                this.props.dispatch(ACT_EDIT_CHILD_DATA(res.data));
+    public submitEditedChildData = async () => {
+        const result = await axios.put(`http://localhost:4000/childItems/${this.state.childOnEditing.id}`, this.state.childOnEditing);
+            try {
+                this.props.dispatch(ACT_EDIT_CHILD_DATA(result.data));
                 this.setState({pageMode: PageMode.ChildList});
-            })
-            .catch((err: AxiosError) => {
-                console.log(err);
+            } catch(err) {
                 ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-            })
+                throw new Error("status: " + err);
+            }
     };
 
     public goBackToUserPage = (): void => {
@@ -144,7 +145,6 @@ class UserPage extends React.PureComponent<IProps, IState> {
             id: this.state.childOnEditing.id,
             name: _name.value,
             dateOfBirth: _dateOfBirth.value,
-            placeOfBirth: _placeOfBirth.value,
             userId: this.state.childOnEditing.userId
         };
         this.setState({childOnEditing: childObj});
@@ -154,38 +154,40 @@ class UserPage extends React.PureComponent<IProps, IState> {
     public changeAvatar = (EO: any): void => {
         console.log(EO.target.files[0]);
         let image = EO.target.files[0];
-        this.setState({userAvatar: image})
+        this.setState({userAvatar: image});
     };
     
-    public submitAvatarData = (EO: any): void => {
+    public submitAvatarData = async (EO: any) => {
         EO.preventDefault();
-        const upload = storage.ref(`images/${this.state.userAvatar.name}`).put(this.state.userAvatar);
+        const upload: any = await storage.ref(`images/${this.state.userAvatar.name}`).put(this.state.userAvatar);
 
         upload.on("state_changed", 
-        (snapshot) => {
-            
+        (snapshot: any) => {
+            this.setState({avatarLoadingStatus: PhotoLoadingStatus.Loading});
+            snapshot.bytesTransferred === snapshot.totalBytes && this.setState({avatarLoadingStatus: PhotoLoadingStatus.Loaded});
         }, 
-        (err) => {
+        (err: any) => {
+            console.log(err);
             this.props.dispatch(ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected))
         }, 
-        () => {
-            storage.ref('images').child(this.state.userAvatar.name).getDownloadURL()
-            .then(url => {
-                console.log(url);
-                const newUserData: UserObject = {
-                    ...this.props.loggedUser,
-                    avatar: url
-                };
-                axios.put(`http://localhost:4000/users/${this.props.loggedUser.id}`, newUserData)
-                    .then((res: AxiosResponse) => this.props.dispatch(ACT_GET_USER_DATA(res.data)))
-                    .catch((err: AxiosError) => console.log(err))
-                
-
-            })
-            .catch(err => {
-                console.log(err);
-                ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-            });
+        async () => {
+            const url = await storage.ref('images').child(this.state.userAvatar.name).getDownloadURL();
+                try {
+                    const newUserData: UserObject = {
+                        ...this.props.loggedUser,
+                        avatar: url
+                    };
+                    const getUser = await axios.put(`http://localhost:4000/users/${this.props.loggedUser.id}`, newUserData);
+                        try {
+                            this.props.dispatch(ACT_GET_USER_DATA(getUser.data));
+                        } catch(err) {
+                            console.log(err);
+                            ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+                        }
+                } catch(err) {                    
+                    console.log(err);
+                    ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
+                }
         });
     };
 
@@ -203,16 +205,24 @@ class UserPage extends React.PureComponent<IProps, IState> {
                 this.state.pageMode === PageMode.ChildList && loggedUser !== null && 
                     <div className="Page-Content">
                         <div className="Avatar-Container">
-                            <img className="Avatar-Container__Image" src={loggedUser.avatar !== "" ? loggedUser.avatar : "/img/avatar.jpg"} alt="avatar"/>
-                            <form onSubmit={this.submitAvatarData}>
-                                <input type="file" onChange={this.changeAvatar} required />
-                                <input type="submit" value="Submit" />
+                            {
+                                this.state.avatarLoadingStatus === PhotoLoadingStatus.Loaded 
+                                ?
+                                <img className="Avatar-Container__Image" src={loggedUser.avatar !== "" ? loggedUser.avatar : "/img/avatar.jpg"} alt="avatar"/>
+                                :
+                                <img src="/img/loader.gif" alt="loader"/>
+                            }
+                            <form className="User-Avatar-Form" onSubmit={this.submitAvatarData}>
+                                <label className="User-Avatar-Form__File-Input-Label">Load Avatar
+                                    <input className="User-Avatar-Form__File-Input" type="file" onChange={this.changeAvatar} required />
+                                </label>
+                                <input className="User-Avatar-Form__Submit" type="submit" value="Submit" />
                             </form>
-                            
                         </div>
                         
-                        <div className="Add-Child-Interface">
-                            <section className="Add-Child-Interface__Child-List">
+                        <div className="Child-Interface">
+                            <h2 className="Child-Interface__Title">Children</h2>
+                            <section className="Child-Interface__Child-List">
                             {
                                 (loggedUser && userChildren.length !== 0) 
                                 ? 
@@ -231,7 +241,7 @@ class UserPage extends React.PureComponent<IProps, IState> {
                                 <div>Loading...</div>
                             } 
                             </section>
-                            <div className="Add-Child-Interface__Button-Container">
+                            <div className="Child-Interface__Button-Container">
                                 <button onClick={this.turnOnAddChildInterface}>+</button>
                             </div>
                         </div>
@@ -254,7 +264,6 @@ class UserPage extends React.PureComponent<IProps, IState> {
                     <h1 className="Page-Content__Username">Edit Child</h1>
                     <input type="text" defaultValue={this.state.childOnEditing.name} onChange={this.changeDataOfChildOnEditing} ref="_name" required />
                     <input type="date" defaultValue={this.state.childOnEditing.dateOfBirth.toString().slice(0,10)} onChange={this.changeDataOfChildOnEditing} ref="_dateOfBirth" required />
-                    <input type="text" defaultValue={this.state.childOnEditing.placeOfBirth} onChange={this.changeDataOfChildOnEditing} ref="_placeOfBirth" required />
                     <button onClick={this.submitEditedChildData}>Submit</button>
                     <button onClick={this.goBackToUserPage}>Back</button>
                 </div> 

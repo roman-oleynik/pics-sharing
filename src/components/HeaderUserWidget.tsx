@@ -39,8 +39,12 @@ class HeaderUserWidget extends React.PureComponent<IProps, IState> {
         return <div className="Logged-User-Widget" onClick={this.switchDropdown}>
                     <NavLink to={`/in/${this.props.loggedUser.id}/children`} className="Logged-User-Widget__Title">{`${firstName}`}</NavLink>
 
-                    <div className="Logged-User-Widget__Avatar">
+                    <div className="Logged-User-Widget__Avatar-Container">
                         {
+                            this.props.loggedUser.avatar !== ""
+                            ?
+                            <img className="Logged-User-Widget__Avatar" src={this.props.loggedUser.avatar} alt="avatar" />
+                            :
                             this.props.loggedUser.email.split("").slice(0,1) // write a first letter of email in an avatar block 
                         } 
                     </div> 

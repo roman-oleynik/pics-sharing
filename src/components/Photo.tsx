@@ -34,16 +34,15 @@ class Photo extends React.PureComponent<IProps, IState> {
         months: this.props.currentChild && (+new Date(this.props.photoData.createdAt) - +new Date(this.props.currentChild.dateOfBirth)) / 2592000000,
     };
 
-    public deletePhoto = (): void => {
-        axios.delete(`http://localhost:4000/photos/${this.props.photoData.id}`)
-            .then((res: AxiosResponse) => {
-                console.log(res);
+    public deletePhoto = async () => {
+        const delPhoto = await axios.delete(`http://localhost:4000/photos/${this.props.photoData.id}`);
+            try {
+                console.log(delPhoto.data);
                 this.props.dispatch(ACT_DELETE_CHILD_PHOTO(this.props.photoData));
-            })
-            .catch((err: AxiosError) => {
+            } catch(err) {
                 console.log(err);
                 ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected);
-            });
+            }
     };
 
     public manageMouseOver = () => this.setState({delButtonColor: "red"});

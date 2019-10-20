@@ -3,24 +3,60 @@ $fullScreenWidth: 100%;
 
 $violet: #a054c6;
 
+@mixin flex($fd: row, $jc: flex-start, $ai: stretch) {
+    display: flex;
+    flex-direction: $fd;
+    justify-content: $jc;
+    align-items: $ai;
+}
 
 .Child-Page-Container {
+    width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     .Page-Content {
         height: auto;
         width: $fullScreenWidth;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        @include flex(row, center, flex-start);
 
-        .Add-Child-Interface {
+
+        .Avatar-Container {
+            @include flex(column, flex-start, center);
+            position: relative;
+            .User-Avatar-Form {
+                width: 100%;
+                box-sizing: border-box;
+                @include flex(row, space-between, center);
+                background: rgba(0,0,0,0.5);
+                position: absolute;
+                bottom: 0;
+                padding: 5px;
+            }
+
+            .User-Avatar-Form__File-Input-Label {
+                color: #ccc;
+                .User-Avatar-Form__File-Input {
+                    height: 1px;
+                    width: 1px;
+                    visibility: hidden;
+                }
+            }
+        }
+
+        .Child-Interface {
+            background-color: yellow;
+            width: 800px;
             display: flex;
             flex-direction: column;
             align-items: center;
 
-            .Add-Child-Interface__Button-Container {
+            .Child-Interface__Title {
+                font-size: 20px;
+                text-align: center;
+            }
+
+            .Child-Interface__Button-Container {
                 button {
                     height: 80px;
                     width: 80px;

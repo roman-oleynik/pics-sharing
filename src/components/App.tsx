@@ -26,21 +26,20 @@ interface IProps {
 
 class App extends React.PureComponent<IProps> {
 
-  public componentWillMount = () => {
+  public componentWillMount = async () => {
     if (navigator.onLine) {
       this.props.dispatch(ACT_EDIT_INTERNET_CONNECTION_STATUS(InternetConnectionStatus.Connected));
     } else {
       this.props.dispatch(ACT_EDIT_INTERNET_CONNECTION_STATUS(InternetConnectionStatus.Disconnected));
     }
-    axios.get('http://localhost:4000/users')
-      .then((res: AxiosResponse): void => {
-        console.log(res);
-        this.props.dispatch(ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Connected))
-      })
-      .catch((err: AxiosError): void => {
+    
+    await axios.get('http://localhost:4000/users');
+      try {
+        this.props.dispatch(ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Connected));
+      } catch(err) {
         console.log(err);
         this.props.dispatch(ACT_EDIT_SERVER_CONNECTION_STATUS(ServerConnectionStatus.Disconnected))
-      })
+      }
   };
 
   public render() {

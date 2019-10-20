@@ -6,8 +6,8 @@ export const GET_PHOTOS_DATA = "GET_PHOTOS_DATA";
 export const ADD_CHILD_PHOTO = "ADD_CHILD_PHOTO";
 export const ADD_CHILD = "ADD_CHILD";
 export const LOG_OUT = "LOG_OUT";
-export const CONNECT_APP_TO_THE_INTERNET = "CONNECT_APP_TO_THE_INTERNET";
-export const CONNECT_APP_TO_THE_SERVER = "CONNECT_APP_TO_THE_SERVER";
+export const EDIT_INTERNET_CONNECTION_STATUS = "EDIT_INTERNET_CONNECTION_STATUS";
+export const EDIT_SERVER_CONNECTION_STATUS = "EDIT_SERVER_CONNECTION_STATUS";
 export const DELETE_CHILD_PHOTO = "DELETE_CHILD_PHOTO";
 
 export enum InternetConnectionStatus {
@@ -33,7 +33,6 @@ export interface Child {
     id: string,
     name: string,
     dateOfBirth: Date,
-    placeOfBirth: string,
     userId: string | undefined
 }
 
@@ -43,15 +42,16 @@ export interface UserObject {
     password: string,
     firstName: string,
     lastName: string,
-    avatar: string
+    avatar: string,
+    location: string,
 }
 
 export interface AOConnectAppToTheInternet {
-    type: typeof CONNECT_APP_TO_THE_INTERNET,
+    type: typeof EDIT_INTERNET_CONNECTION_STATUS,
     status: InternetConnectionStatus
 }
 export interface AOConnectAppToTheServer {
-    type: typeof CONNECT_APP_TO_THE_SERVER,
+    type: typeof EDIT_SERVER_CONNECTION_STATUS,
     status: ServerConnectionStatus
 }
 export interface AOAuthorizeUser {
